@@ -13,3 +13,5 @@ Mission de réduire et de contrôler les risques professionnels – tels que les
 * Gestion Intégrée des Materiel et engins
 # Sources
 This app is inspired by Maxware Center Kenitra City.
+
+ ![Logo-1-min](https://user-images.githubusercontent.com/44381355/62157339-d5d11000-b304-11e9-9d74-5442fe25a015.png)
