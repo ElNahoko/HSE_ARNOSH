@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <record model="ir.ui.view" id="kanban_view_patient">
+            <field name="name">Agent HSE</field>
+            <field name="model">agent.a</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name='id'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('agent.a', 'agent_image', record.id.value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <ul>
+                                            <li>Agent :<field name="agent_id"/></li>
+                                            <li>Zone Affecte :<field name="local_id"/></li>
+                                        </ul>
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+</odoo>

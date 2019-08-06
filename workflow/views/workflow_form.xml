@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="view_agent_form" model="ir.ui.view">
+            <field name="name">agent.a.form</field>
+            <field name="model">agent.a</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Patient">
+                    <sheet>
+                      <group name="group_top">
+                        <group name="group_left">
+                          <field name="agent_id"/>
+                          <field name="agent_image"/>
+                        </group>
+                        <group name="group_right">
+                          <field name="local_id" widget="many2many_tags"/>
+                        </group>
+                      </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_worflow_view">
+            <field name="name">Agents</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">agent.a</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Agent.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="workflow_menu"
+                name="Utilisateur HSE"/>
+    	<menuitem id="work_hse_menu"
+              	parent="workflow_menu"
+              	name="Gestion d'agent"
+              	action="act_open_worflow_view"/>
+
+
+
+</odoo>
