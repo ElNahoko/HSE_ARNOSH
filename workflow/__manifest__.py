@@ -24,6 +24,7 @@
 
     # always loaded
     'data': [
+        'views/res_user_view.xml',
         'security/ir.model.access.csv',
         'views/workflow_kanban.xml',
         'views/workflow_form.xml',
@@ -32,4 +33,5 @@
     'demo': [
         'demo/demo.xml',
     ],
+    'images': ['static/description/icon.png'],
 }
