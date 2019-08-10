@@ -4,8 +4,11 @@
             <field name="name">Agent HSE</field>
             <field name="model">agent.a</field>
             <field name="arch" type="xml">
-                <kanban>
-                    <field name='id'/>
+                <kanban class="o_kanban_mobile">
+                    <field name="id"/>
+                    <field name='local_id'/>
+                    <field name="agent_id"/>
+                    <field name="type_compte"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
@@ -16,7 +19,10 @@
                                     <strong>
                                         <ul>
                                             <li>Agent :<field name="agent_id"/></li>
-                                            <li>Zone Affecte :<field name="local_id"/></li>
+                                            <li>Compte :<field name="type_compte"/></li>
+                                            <t t-foreach="record.local_id.raw_value" t-as='o'>
+                                            <li> Zone : <t t-esc="o.localisation"/><br/></li>
+                                            </t>
                                         </ul>
                                     </strong>
                                 </div>
