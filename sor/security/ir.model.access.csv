@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_observation_hse,access.observation.hse,model_observation_hse,base.group_user,1,1,1,1
+access_risque_hse,access.risque.r,model_risque_r,base.group_user,1,1,1,1

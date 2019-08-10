@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="view_sor_form" model="ir.ui.view">
+            <field name="name">SOR.form</field>
+            <field name="model">observation.hse</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="SOR">
+                    <sheet>
+                        <h1 class="mt0"> <field name="reference" class="oe_inline"/> </h1>
+                      <group name="group_top">
+                        <group name="group_left">
+                          <field name="projet_id"/>
+                          <field name="company_id"/>
+                            <field name="date_creation"/>
+                            <field name="id_soumetteur"/>
+
+
+                        </group>
+                        <group name="group_right">
+                            <field name="risque_critique"/>
+                            <field name="localisation"/>
+                            <field name="priority" widget="priority"/>
+                          <field name="image_observation" widget="image_popup" class="oe_avatar"/>
+                        </group>
+                      </group>
+                         <group name="group_bottom">
+                        <field name="description" widget="html"/>
+                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_sor_view">
+            <field name="name">SOR</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">observation.hse</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    SAFETY OBSERVATION REPORT.
+                    INPUT
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="SOR_menu"
+                name="Observation INPUT"
+               />
+    	<menuitem id="SOR_hse_menu"
+              	parent="SOR_menu"
+              	name="Creer un INPUT"
+              	action="act_open_sor_view"/>
+
+
+
+</odoo>

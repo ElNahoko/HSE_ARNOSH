@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <record model="ir.ui.view" id="kanban_view_patient">
+            <field name="name">SOR HSE</field>
+            <field name="model">observation.hse</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name='image_observation'/>
+                    <field name='reference'/>
+                    <field name="projet_id"/>
+                    <field name="priority"/>
+                    <field name="risque_critique"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <ul>
+                                            <li>Type :<field name="reference"/></li>
+                                            <li>Projet :<field name="projet_id"/></li>
+                                            <li>Priorite :<field name="priority"/></li>
+                                            <li>Risque :<field name="risque_critique"/></li>
+                                        </ul>
+
+                                    </strong>
+                                </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+</odoo>
