@@ -5,15 +5,25 @@
             <field name="model">agent.a</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <form string="Patient">
+                <form string="Agent">
                     <sheet>
+                        <group>
+                          <field name="agent_image" widget="image_popup" class="oe_avatar"/>
+                        </group>
+
+                        <div name="title_name" class="oe_title">
+                            <h1>
+                                <field name="titre"
+                                    style="width: 30%%" />
+                            </h1>
+                        </div>
                       <group name="group_top">
                         <group name="group_left">
                           <field name="agent_id"/>
-                          <field name="agent_image"/>
                         </group>
                         <group name="group_right">
                           <field name="local_id" widget="many2many_tags"/>
+                            <field name="type_compte"/>
                         </group>
                       </group>
                     </sheet>
@@ -32,16 +42,19 @@
             <field name="context">{}</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    Create Agent.
+                    Créer un agent HSE.
                 </p>
             </field>
         </record>
 
+
+
         <menuitem id="workflow_menu"
-                name="Utilisateur HSE"/>
-    	<menuitem id="work_hse_menu"
+                name="Agent HSE"
+               />
+    	<menuitem id="Agent HSE_1"
               	parent="workflow_menu"
-              	name="Gestion d'agent"
+              	name="Agent HSE"
               	action="act_open_worflow_view"/>
 
 
