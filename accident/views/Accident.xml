@@ -18,8 +18,9 @@
                                 <div class="oe_kanban_details">
                                     <strong>
                                         <ul>
+                                            <li>type :<field name="type"/></li>
                                             <li>Gravité :<field name="gravite"/></li>
-                                            <li>Description :<field name="descaccident"/></li>
+                                            <li>Règles :<field name="regle"/></li>
                                         </ul>
                                     </strong>
                                 </div>
@@ -27,6 +28,17 @@
                         </t>
                     </templates>
                 </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_invoice_graph">
+            <field name="name">account.invoice.graph</field>
+            <field name="model">acc.acc</field>
+            <field name="arch" type="xml">
+                <graph string="Invoices">
+                    <field name="type"/>
+                    <field name="gravite" type="measure"/>
+                </graph>
             </field>
         </record>
 
@@ -41,7 +53,7 @@
                     <field name="regle" />
                     <field name="date" />
                     <field name="descaccident" />
-                    <field name="img" />
+                    <field name="img" widget="image" class="oe_avatar"/>
                 </tree>
             </field>
         </record>
@@ -55,7 +67,7 @@
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                         </div>
-                        <field name="img" widget="image" class="oe_avatar"/>
+                        <field name="img" widget="image_popup" class="oe_avatar"/>
                         <div name="title_name" class="oe_title">
                             <h1>
                                 <table>
@@ -84,35 +96,38 @@
             </field>
         </record>
 
-        <!--<record id="view_lab_accident_search" model="ir.ui.view">
+        <record id="view_lab_accident_search" model="ir.ui.view">
             <field name="name">lab.accident.search</field>
-            <field name="model">lab.accident</field>
+            <field name="model">acc.acc</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
                 <search string="accident">
-                    <field name="accident" />
-                    <field name="blood_group" />
-                    <field name="name" />
+                    <field name="type" />
+                    <field name="gravite" />
+                    <field name="date" />
+                    <field name="regle" />
                     <newline />
                     <group expand="0" string="Group By...">
-                        <filter name="blood_group" string="Blood Group"
-                            domain="[]" context="{'group_by':'blood_group'}" />
-                        <filter name="name" string="accident ID"
-                            domain="[]" context="{'group_by':'name'}" />
-                        <filter name="accident" string="accident"
-                            domain="[]" context="{'group_by':'accident'}" />
+                        <filter name="type" string="Type"
+                            domain="[]" context="{'group_by':'type'}" />
+                        <filter name="gravite" string="Gravité"
+                            domain="[]" context="{'group_by':'gravite'}" />
+                        <filter name="date" string="Date"
+                            domain="[]" context="{'group_by':'date'}" />
+                        <filter name="regle" string="Règle"
+                            domain="[]" context="{'group_by':'regle'}" />
                     </group>
                 </search>
             </field>
-        </record>-->
+        </record>
 
         <record model="ir.actions.act_window" id="act_open_lab_accident_view2">
             <field name="name">Accident/Incident</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">acc.acc</field>
             <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <!--<field name="search_view_id" ref="view_lab_accident_search" />-->
+            <field name="view_mode">kanban,tree,form,graph</field>
+            <field name="search_view_id" ref="view_lab_accident_search" />
             <field name="domain">[]</field>
             <field name="context">{}</field>
             <field name="help" type="html">
@@ -121,16 +136,7 @@
                 </p>
             </field>
         </record>
-
-        <!--<record model="ir.sequence" id="seq_lab_accident">
-            <field name="name">accident</field>
-            <field name="code">reg.reg</field>
-            <field name="prefix">PID</field>
-            <field name="padding">3</field>
-            <field name="company_id" eval="False" />
-        </record>-->
-
-
+      
         <menuitem id="menu_lab_accident2" name="Accidents/Incidents" sequence="10"
             parent="menu_root_lab" action="act_open_lab_accident_view2"/>
 
