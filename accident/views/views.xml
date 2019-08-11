@@ -1,8 +1,8 @@
 <odoo>
   <data>
     <menuitem id="menu_root_lab" name="règles" sequence="40"/>
-        <record model="ir.ui.view" id="kanban_view_patient">
-            <field name="name">Patient Kanban</field>
+        <record model="ir.ui.view" id="kanban_view_regle">
+            <field name="name">regle Kanban</field>
             <field name="model">reg.reg</field>
             <field name="arch" type="xml">
                 <kanban>
@@ -20,7 +20,6 @@
                                     <strong>
                                         <ul>
                                             <li>Nom :<field name="nom"/></li>
-                                            <li>Description :<field name="desc"/></li>
                                         </ul>
                                     </strong>
                                 </div>
@@ -31,29 +30,28 @@
             </field>
         </record>
 
-        <record id="view_lab_patient_tree" model="ir.ui.view">
-            <field name="name">lab.patient.tree</field>
+        <record id="view_lab_regle_tree" model="ir.ui.view">
+            <field name="name">lab.regle.tree</field>
             <field name="model">reg.reg</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <tree string="Patient">
+                <tree string="regle">
                     <field name="nom" />
-                    <field name="icon" />
-                    <field name="desc" />
+                    <field name="icon" widget="image" class="oe_avatar"/>
                 </tree>
             </field>
         </record>
 
-        <record id="view_lab_patient_form" model="ir.ui.view">
-            <field name="name">lab.patient.form</field>
+        <record id="view_lab_regle_form" model="ir.ui.view">
+            <field name="name">lab.regle.form</field>
             <field name="model">reg.reg</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <form string="Patient">
+                <form string="regle">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                         </div>
-                        <field name="icon" widget="image" class="oe_avatar"/>
+                        <field name="icon" widget="image_popup" class="oe_avatar"/>
                         <div name="title_name" class="oe_title">
                             <h1>
                                 <table>
@@ -75,35 +73,35 @@
             </field>
         </record>
 
-        <!--<record id="view_lab_patient_search" model="ir.ui.view">
-            <field name="name">lab.patient.search</field>
-            <field name="model">lab.patient</field>
+        <!--<record id="view_lab_regle_search" model="ir.ui.view">
+            <field name="name">lab.regle.search</field>
+            <field name="model">lab.regle</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <search string="Patient">
-                    <field name="patient" />
+                <search string="regle">
+                    <field name="regle" />
                     <field name="blood_group" />
                     <field name="name" />
                     <newline />
                     <group expand="0" string="Group By...">
                         <filter name="blood_group" string="Blood Group"
                             domain="[]" context="{'group_by':'blood_group'}" />
-                        <filter name="name" string="Patient ID"
+                        <filter name="name" string="regle ID"
                             domain="[]" context="{'group_by':'name'}" />
-                        <filter name="patient" string="Patient"
-                            domain="[]" context="{'group_by':'patient'}" />
+                        <filter name="regle" string="regle"
+                            domain="[]" context="{'group_by':'regle'}" />
                     </group>
                 </search>
             </field>
         </record>-->
 
-        <record model="ir.actions.act_window" id="act_open_lab_patient_view">
+        <record model="ir.actions.act_window" id="act_open_lab_regle_view">
             <field name="name">Règle</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">reg.reg</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
-            <!--<field name="search_view_id" ref="view_lab_patient_search" />-->
+            <!--<field name="search_view_id" ref="view_lab_regle_search" />-->
             <field name="domain">[]</field>
             <field name="context">{}</field>
             <field name="help" type="html">
@@ -113,19 +111,17 @@
             </field>
         </record>
 
-        <!--<record model="ir.sequence" id="seq_lab_patient">
-            <field name="name">Patient</field>
+        <!--<record model="ir.sequence" id="seq_lab_regle">
+            <field name="name">regle</field>
             <field name="code">reg.reg</field>
             <field name="prefix">PID</field>
             <field name="padding">3</field>
             <field name="company_id" eval="False" />
         </record>-->
 
-        <menuitem id="menu_lab_patient" name="Règles de sécurité" sequence="10"
-            parent="menu_root_lab" />
-        <menuitem id="menu_lab_patient_child" name="Patient" sequence="10"
-                  parent="menu_lab_patient" action="act_open_lab_patient_view"
-                  />
+        <menuitem id="menu_lab_regle" name="Règles de sécurité" sequence="10"
+            parent="menu_root_lab" action="act_open_lab_regle_view"/>
+
 
 
   </data>
