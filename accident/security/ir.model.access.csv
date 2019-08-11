@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_reg_reg,reg.reg,model_reg_reg,base.group_user,1,1,1,0
+access_acc_acc,acc.acc,model_acc_acc,base.group_user,1,1,1,0
+access_gra_gra,gra.gra,model_gra_gra,base.group_user,1,1,1,0

@@ -1,0 +1,140 @@
+<odoo>
+  <data>
+        <record model="ir.ui.view" id="kanban_view_accident">
+            <field name="name">Accident Kanban</field>
+            <field name="model">acc.acc</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id" />
+                    <field name='gravite'/>
+                    <field name='img'/>
+                    <field name='descaccident'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('acc.acc', 'img', record.id.value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <ul>
+                                            <li>Gravité :<field name="gravite"/></li>
+                                            <li>Description :<field name="descaccident"/></li>
+                                        </ul>
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_lab_accident_tree" model="ir.ui.view">
+            <field name="name">lab.accident.tree</field>
+            <field name="model">acc.acc</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="accident">
+                    <field name="type" />
+                    <field name="gravite" />
+                    <field name="regle" />
+                    <field name="date" />
+                    <field name="descaccident" />
+                    <field name="img" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_lab_accident_form" model="ir.ui.view">
+            <field name="name">lab.accident.form</field>
+            <field name="model">acc.acc</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Accident">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <field name="img" widget="image" class="oe_avatar"/>
+                        <div name="title_name" class="oe_title">
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <field name="type"
+                                                required="1"
+                                                placeholder="Type"
+                                                style="padding-right:10px"
+                                            />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="gravite" />
+                                <field name="regle" />
+                                <field name="date" />
+                            </group>
+                        </group>
+                      <field  name="descaccident" widget="html"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="view_lab_accident_search" model="ir.ui.view">
+            <field name="name">lab.accident.search</field>
+            <field name="model">lab.accident</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="accident">
+                    <field name="accident" />
+                    <field name="blood_group" />
+                    <field name="name" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter name="blood_group" string="Blood Group"
+                            domain="[]" context="{'group_by':'blood_group'}" />
+                        <filter name="name" string="accident ID"
+                            domain="[]" context="{'group_by':'name'}" />
+                        <filter name="accident" string="accident"
+                            domain="[]" context="{'group_by':'accident'}" />
+                    </group>
+                </search>
+            </field>
+        </record>-->
+
+        <record model="ir.actions.act_window" id="act_open_lab_accident_view2">
+            <field name="name">Accident/Incident</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">acc.acc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!--<field name="search_view_id" ref="view_lab_accident_search" />-->
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Déclarer Accident/Incident.
+                </p>
+            </field>
+        </record>
+
+        <!--<record model="ir.sequence" id="seq_lab_accident">
+            <field name="name">accident</field>
+            <field name="code">reg.reg</field>
+            <field name="prefix">PID</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False" />
+        </record>-->
+
+
+        <menuitem id="menu_lab_accident2" name="Accidents/Incidents" sequence="10"
+            parent="menu_root_lab" action="act_open_lab_accident_view2"/>
+
+
+
+  </data>
+</odoo>

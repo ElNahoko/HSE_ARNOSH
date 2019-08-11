@@ -1,0 +1,132 @@
+<odoo>
+  <data>
+    <menuitem id="menu_root_lab" name="règles" sequence="40"/>
+        <record model="ir.ui.view" id="kanban_view_patient">
+            <field name="name">Patient Kanban</field>
+            <field name="model">reg.reg</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id" />
+                    <field name='nom'/>
+                    <field name='icon'/>
+                    <field name='desc'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('reg.reg', 'icon', record.id.value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <ul>
+                                            <li>Nom :<field name="nom"/></li>
+                                            <li>Description :<field name="desc"/></li>
+                                        </ul>
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_lab_patient_tree" model="ir.ui.view">
+            <field name="name">lab.patient.tree</field>
+            <field name="model">reg.reg</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Patient">
+                    <field name="nom" />
+                    <field name="icon" />
+                    <field name="desc" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_lab_patient_form" model="ir.ui.view">
+            <field name="name">lab.patient.form</field>
+            <field name="model">reg.reg</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Patient">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <field name="icon" widget="image" class="oe_avatar"/>
+                        <div name="title_name" class="oe_title">
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <field name="nom"
+                                                required="1"
+                                                placeholder="FullName"
+                                                style="padding-right:10px"
+                                            />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                      <field  name="desc" widget="html"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="view_lab_patient_search" model="ir.ui.view">
+            <field name="name">lab.patient.search</field>
+            <field name="model">lab.patient</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Patient">
+                    <field name="patient" />
+                    <field name="blood_group" />
+                    <field name="name" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter name="blood_group" string="Blood Group"
+                            domain="[]" context="{'group_by':'blood_group'}" />
+                        <filter name="name" string="Patient ID"
+                            domain="[]" context="{'group_by':'name'}" />
+                        <filter name="patient" string="Patient"
+                            domain="[]" context="{'group_by':'patient'}" />
+                    </group>
+                </search>
+            </field>
+        </record>-->
+
+        <record model="ir.actions.act_window" id="act_open_lab_patient_view">
+            <field name="name">Règle</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">reg.reg</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!--<field name="search_view_id" ref="view_lab_patient_search" />-->
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Créer une règle.
+                </p>
+            </field>
+        </record>
+
+        <!--<record model="ir.sequence" id="seq_lab_patient">
+            <field name="name">Patient</field>
+            <field name="code">reg.reg</field>
+            <field name="prefix">PID</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False" />
+        </record>-->
+
+        <menuitem id="menu_lab_patient" name="Règles de sécurité" sequence="10"
+            parent="menu_root_lab" />
+        <menuitem id="menu_lab_patient_child" name="Patient" sequence="10"
+                  parent="menu_lab_patient" action="act_open_lab_patient_view"
+                  />
+
+
+  </data>
+</odoo>
