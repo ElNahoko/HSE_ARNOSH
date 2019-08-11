@@ -13,6 +13,7 @@
                     <field name="risque_critique"/>
                     <templates>
                         <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
                                 <div class="oe_kanban_details">
                                     <strong>
                                         <ul>
@@ -21,9 +22,12 @@
                                             <li>Priorite :<field name="priority"/></li>
                                             <li>Risque :<field name="risque_critique"/></li>
                                         </ul>
-
                                     </strong>
                                 </div>
+                            <div class="oe_kanban_bottom_right">
+                                        <field name="kanban_state" widget="state_selection" groups="base.group_user"/>
+                            </div>
+                            </div>
                         </t>
                     </templates>
                 </kanban>
