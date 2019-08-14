@@ -24,6 +24,7 @@
 
     # always loaded
     'data': [
+        'security/HSE_USER_WORKFLOW_GROUPS.xml',
         'views/res_user_view.xml',
         'security/ir.model.access.csv',
         'views/workflow_kanban.xml',
