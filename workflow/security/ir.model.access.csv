@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_workflow_workflow,access.agent.a,model_agent_a,base.group_user,1,1,1,1
-grp_local_n,access.local.n,model_local_n,base.group_user,1,1,1,1
+admin_acc,access.agent.a,model_agent_a,group_responsible,1,1,1,1
+admin_aa,access.local.n,model_local_n,group_user,1,1,1,1
+user_aaa,access.agent.a,model_agent_a,group_responsible,1,0,0,0
+user_xx,access.local.n,model_local_n,group_user,1,0,0,0
