@@ -95,9 +95,11 @@ class Observation(models.Model):
             return super(Observation, self).create(vals)
 
     def informer_responsable(self):
-            message_body = "Bonjour " + self.id_soumetteur.name + "," + "<br>Vous avez recu un input Urgent  " \
-                                             + "<br>Type de risque : " + self.risque_critique.type_risque + "<br>Date : " + str(self.date_creation) + \
-                       '<br><br>Cordialement'
+            message_body = "Bonjour " + self.id_soumetteur.name + "," 
+                         + "<br>Vous avez recu un input Urgent  " \
+                         + "<br>Type de risque : " + self.risque_critique.type_risque 
+                         + "<br>Date : " + str(self.date_creation) 
+                         + \ '<br><br>Cordialement'
             to = "hamza.natsu@gmail.com"
             data = {
             'subject': 'Observation Urgent',
