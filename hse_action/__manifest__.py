@@ -26,8 +26,7 @@
     'data': [
         'data/ACTION_sequence.xml',
         'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'views/ACTION_FORM_VIEW.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
