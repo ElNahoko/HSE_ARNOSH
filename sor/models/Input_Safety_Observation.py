@@ -26,7 +26,8 @@ class Observation(models.Model):
 
     date_creation = fields.Datetime(
         string="Date creation",
-        required=False,default=lambda s: fields.Datetime.now(),
+        required=False,
+        default=lambda s: fields.Datetime.now(),
         readonly=True)
 
     id_soumetteur = fields.Many2one(
@@ -95,11 +96,11 @@ class Observation(models.Model):
             return super(Observation, self).create(vals)
 
     def informer_responsable(self):
-            message_body = "Bonjour " + self.id_soumetteur.name + "," 
-                         + "<br>Vous avez recu un input Urgent  " \
-                         + "<br>Type de risque : " + self.risque_critique.type_risque 
-                         + "<br>Date : " + str(self.date_creation) 
-                         + \ '<br><br>Cordialement'
+            message_body = "Bonjour " + self.id_soumetteur.name + ","
+                            + "<br>Vous avez recu un input Urgent  " \
+                            + "<br>Type de risque : " + self.risque_critique.type_risque 
+                            + "<br>Date : " + str(self.date_creation) + \
+                    ]         '<br><br>Cordialement'
             to = "hamza.natsu@gmail.com"
             data = {
             'subject': 'Observation Urgent',
@@ -121,15 +122,16 @@ class Observation(models.Model):
             if rec.reference:
                 action_sor = {
                     'source': 'SOR',
-                    'originateur': rec.id_soumetteur,
+                    'originateur': rec.id_soumetteur.name,
                     'categorie': rec.risque_critique.type_risque,
                     'etat': 'Ouvert',
-                    'date_creation': str(datetime.datetime.now()),
+                    'date_creation': datetime.datetime.now()
                 }
+
                 action_ids = action_obj.create(action_sor)
                 action_id = action_ids.id
 
-                view_id = self.env.ref('action.ACTION_FORM_VIEW').id
+                view_id = self.env.ref('hse_action.action_form_view').id
 
                 return {
                     'view_type': 'form',
