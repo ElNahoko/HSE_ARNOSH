@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_tree_view" model="ir.ui.view">
+            <field name="name">Action</field>
+            <field name="model">action</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="reference_action"/>
+                    <field name="source"/>
+                    <field name="originateur"/>
+                    <field name="etat"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_form_view" model="ir.ui.view">
+            <field name="name">Action Form</field>
+            <field name="model">action</field>
+            <field name="arch" type="xml">
+                <form string="Action">
+                    <sheet>
+                        <group>
+                            <group col="4" colspan="4">
+                                <field name="reference_action"/>
+                                <field name="source"/>
+                                <field name="originateur"/>
+                                <field name="categorie"/>
+                                <field name="delai"/>
+                                <field name="etat"/>
+                                <field name="responsable"/>
+                                <field name="entreprise"/>
+                                <field name="type"/>
+                                <field name="date_cloture"/>
+                                <field name="date_creation"/>
+                                <field name="description_observation"/>
+                                <field name="action_correctif"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_open_action_view" model="ir.actions.act_window">
+            <field name="name">Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">action</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+
+              </p><p>
+
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="action_root"
+                  name="Action"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="UNIQUE_ID_categ"
+                  name="HSE Actions"
+                  parent="action_root"
+                  action="act_open_action_view"/>
+
+    </data>
+</odoo>
