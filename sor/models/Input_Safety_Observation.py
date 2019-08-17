@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import datetime
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, AccessError, ValidationError
 
@@ -63,7 +63,7 @@ class Observation(models.Model):
     }
     kanban_state = fields.Selection([
         ('normal', 'En Progres'),
-        ('done', 'Resolu'),
+        ('done', 'Resoly'),
         ('blocked', 'Refuser')], string='Kanban State',
         copy=False, default='normal', required=True)
 
@@ -111,6 +111,33 @@ class Observation(models.Model):
             else:
                 print("0/5")
 
+
+    @api.multi
+    def create_action(self):
+        action_obj = self.env["action"]
+        for rec in self:
+            if rec.reference:
+                action_sor = {
+                    'source': 'SOR',
+                    'originateur': rec.id_soumetteur,
+                    'categorie': rec.risque_critique.type_risque,
+                    'etat': 'Ouvert',
+                    'date_creation': str(datetime.datetime.now()),
+                }
+                action_ids = action_obj.create(action_sor)
+                action_id = action_ids.id
+
+                view_id = self.env.ref('action.ACTION_FORM_VIEW').id
+
+                return {
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'res_model': 'action',
+                    'view_id': view_id,
+                    'type': 'ir.actions.act_window',
+                    'name': _('SOR Action'),
+                    'res_id': action_id
+                }
 
 class Risque(models.Model):
     _name = 'risque.r'
