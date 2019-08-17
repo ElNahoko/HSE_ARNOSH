@@ -5,9 +5,10 @@ from odoo import fields, models, api, _
 
 class Action(models.Model):
     _name = "action"
+    _rec_name = "reference_action"
 
     # N° de référence de l'action pour permettre un suivis
-    reference_action = fields.char(
+    reference_action = fields.Char(
         string="Reference Action",
         readonly=True,
         default=lambda self: _('New'))
@@ -15,26 +16,27 @@ class Action(models.Model):
     # Indiquer d’où vient l'action.
     source = fields.Char(
         string="Type Risque",
-        required=False, )
+        required=False, readonly=True,)
 
     # Description de l'observation
     description_observation = fields.Text(
-        string="",
+        string="Description",
         required=False, )
 
     # La personne qui a fait l'observation
     originateur = fields.Char(
-        string="",
-        required=False, )
+        string='Agent',
+        readonly=True, )
 
     #  Catégories SOR
     categorie = fields.Char(
-        string="",
-        required=False, )
+        string="Categorie",
+        required=False,
+        readonly=True,)
 
     #Action prise ou à prendre pour corriger l'anomalie
     action_correctif = fields.Text(
-        string="",
+        string="Action Correctif",
         required=False, )
 
     # Date à laquelle l'action corrective doit être cloturée
@@ -44,42 +46,53 @@ class Action(models.Model):
 
     # Closed = Cloturée; Open = Ouvert
     etat = fields.Selection(
-        string="",
+        string="Etat",
         selection=[('Cloturee', 'Closed'),
                    ('Ouvert', 'Open'), ],
-        required=False, )
+        required=False,
+        readonly=True, )
 
     # Responsable du suivis de l'action
     responsable = fields.Char(
-        string="",
-        required=False, )
+        string='Responsable',
+        readonly=True)
 
     # L'entreprise chez laquelle l'observation a été faite
 
     entreprise = fields.Char(
-        string="",
-        required=False, )
+        string = "Entreprise",
+        required=False,
+        readonly=True)
 
     # Si l'observation est un non respect des consignes de sécurité mettre "Finding".
     # Si l'observation est positive mettre "Positive Observation"
 
     type = fields.Selection(
-        string="",
+        string="Type Observation",
         selection=[('finding', 'Finding'),
                    ('positive', 'Positive Observation'), ],
         required=False, )
 
     # Date réelle à laquelle l'action a été cloturée
     date_cloture = fields.Datetime(
-        string="",
-        required=False, )
-    # Date du creation de l'action
-    date_creation = fields.Datetime(
-        string="",
+        string="Date cloture",
         required=False, )
 
+    # Date du creation de l'action
+    date_creation = fields.Datetime(
+        string="Date creation",
+        required=False,
+        default=lambda s: fields.Datetime.now(),
+        readonly=True)
+    
     @api.model
     def create(self, vals):
-        if vals:
-            vals['reference_action'] = self.env['ir.sequence'].next_by_code('action') or _('New')
+        if vals.get('source') == 'SOR':
+            vals['reference_action'] = self.env['ir.sequence'].next_by_code('action.sor') or _('New')
+            return super(Action, self).create(vals)
+        elif vals.get('source') == 'Accident':
+            vals['reference_assction'] = self.env['ir.sequence'].next_by_code('action.acci') or _('New')
+            return super(Action, self).create(vals)
+        elif vals.get('source') == 'Incident':
+            vals['reference_action'] = self.env['ir.sequence'].next_by_code('action.inci') or _('New')
             return super(Action, self).create(vals)
