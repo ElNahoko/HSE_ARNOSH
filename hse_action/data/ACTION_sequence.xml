@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.sequence" id="seq_action_hse">
+            <field name="name">Action </field>
+            <field name="code">action</field>
+            <field name="prefix">ACT</field>
+            <field name="padding">3</field>
+        </record>
+</odoo>
