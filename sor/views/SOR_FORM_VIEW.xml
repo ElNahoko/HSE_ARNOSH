@@ -6,6 +6,10 @@
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
                 <form string="SOR">
+                     <header>
+                         <button name="create_action" string="Create Acion" type="object" class="oe_highlight" />
+                        <button name="informer_responsable" string="Urgent" type="object" class="oe_highlight" />
+                    </header>
                     <sheet>
                         <h1 class="mt0"> <field name="reference" class="oe_inline"/> </h1>
                       <group name="group_top">
@@ -33,7 +37,7 @@
         </record>
 
 
-        <record model="ir.actions.act_window" id="act_open_sor_view">
+            <record model="ir.actions.act_window" id="act_open_sor_view">
             <field name="name">SOR</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">observation.hse</field>
