@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+    <!-- actions to be given to the menu -->
+    <record id="equipement_menu_action" model="ir.actions.act_window">
+        	<field name="name">Equipements</field>
+        	<field name="res_model">g.equipment</field><!-- the action is going to this model-->
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form,kanban</field>
+        	<field name="domain">[]</field>
+        	<field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                   Ajouter votre premier équipement
+            </p><p>
+                Suivis et maintenance des équipements
+                avec votre equipe d'employee.
+            </p>
+        	</field>
+    </record>
+        <!-- equipement tree view -->
+  <record id="equipement_tree_view" model="ir.ui.view">
+         <field name="name">Equipement Tree</field>
+         <field name="model">g.equipment</field>
+         <field name="arch" type="xml">
+
+                   <tree string="Equipements">
+                       <field name="reference"/>
+                       <field name="Nom_equip"/>
+                        <field name="utilisation"/>
+                        <field name="quantity"/>
+                        <field name="emplacement"/>
+                    </tree>
+
+          </field>
+  </record>
+           <!-- equipement form view -->
+  <record id="equipement_tree_form" model="ir.ui.view">
+         <field name="name">Equipement Form</field>
+         <field name="model">g.equipment</field>
+         <field name="arch" type="xml">
+             <form string="Equipments">
+             <sheet>
+                 <field name="reference"/>
+                     <div class="oe_title">
+                    <label for="Nom_equip" class="oe_edit_only"/>
+                    <h1><field name="Nom_equip" string="Name" placeholder="Nom Equipment"/></h1>
+                    </div>
+                <group>
+                        <group>
+                            <field name="categorie_id" options="{&quot;no_open&quot;: True}"/>
+                            <field name="utilisation"/>
+
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="emplacement"/>
+                        </group>
+                </group>
+                <notebook>
+                     <page string="Localisation">
+                            <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
+                        </page>
+                        <page string="Description">
+                            <field name="commentaire"/>
+                        </page>
+                        <page string="Maintenance">
+
+                        </page>
+                </notebook>
+           </sheet>
+        </form>
+        </field>
+  </record>
+        <!-- main menu = Maintenance d'Equipements  -->
+    	<menuitem id="main_menu"
+              	name="Maintenance d'Equipement"
+                groups="base.group_user"/>
+        <!-- second menu = equipement linked to action -->
+    	<menuitem id="equip_menu" parent="main_menu"
+                  name="Equipements" groups="base.group_user"
+         action="equipement_menu_action"/>
+	</data>
+</odoo>
