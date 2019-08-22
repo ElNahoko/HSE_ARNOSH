@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <odoo>
+
+
+        <!-- Observation Form View -->
+
         <record id="view_sor_form" model="ir.ui.view">
             <field name="name">SOR.form</field>
             <field name="model">observation.hse</field>
@@ -8,17 +12,17 @@
                 <form string="SOR">
                      <header>
                          <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
-                        <button name="informer_responsable" string="Urgent" type="object" class="oe_highlight" />
-                        <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
+                         <button name="informer_responsable" string="Urgent" type="object" class="oe_highlight" />
+                         <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
                          <button  name="Print_SOR" string="Print SOR" type="object" class="oe_highlight"/>
-                          <field name="state" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
+                         <field name="state" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
                     </header>
                     <sheet>
                         <h1 class="mt0"> <field name="reference" class="oe_inline"/> </h1>
                       <group name="group_top">
                         <group name="group_left">
-                          <field name="projet_id"/>
-                          <field name="company_id"/>
+                            <field name="projet_id"/>
+                            <field name="company_id"/>
                             <field name="date_creation"/>
                             <field name="id_soumetteur"/>
                         </group>
@@ -26,16 +30,19 @@
                             <field name="risque_critique"/>
                             <field name="localisation"/>
                             <field name="priority" widget="priority"/>
-                          <field name="image_observation" widget="image_popup" class="oe_avatar"/>
+                            <field name="image_observation" widget="image_popup" class="oe_avatar"/>
                         </group>
                       </group>
                          <group name="group_bottom">
-                        <field name="description" widget="html"/>
+                            <field name="description" widget="html"/>
                          </group>
                     </sheet>
                 </form>
             </field>
         </record>
+
+
+    <!-- Observation Filter Tree View -->
 
         <record id="SOR_search" model="ir.ui.view">
             <field name="name">SOR.Search</field>
@@ -69,12 +76,47 @@
         </record>
 
 
+
+       <!-- Observation Report Pivot View -->
+
+        <record id="SOR_Pivot" model="ir.ui.view">
+        <field name="name">SOR.Pivot</field>
+        <field name="model">observation.hse</field>
+        <field name="arch" type="xml">
+            <pivot string="Actions" disable_linking="True">
+                <field name="projet_id"/>
+                <field name="company_id"/>
+                <field name="id_soumetteur"/>
+                <field name="risque_critique"/>
+                <field name="priority"/>
+            </pivot>
+        </field>
+        </record>
+
+             <!-- Observation Report Graph View -->
+
+        <record id="SOR_Graph" model="ir.ui.view">
+        <field name="name">SOR.Pivot</field>
+        <field name="model">observation.hse</field>
+        <field name="arch" type="xml">
+            <graph string="Observation">
+                <field name="projet_id"/>
+                <field name="company_id"/>
+                <field name="id_soumetteur"/>
+                <field name="risque_critique"/>
+                <field name="priority"/>
+            </graph>
+        </field>
+        </record>
+
+             <!-- Observation Action -->
+
             <record model="ir.actions.act_window" id="act_open_sor_view">
             <field name="name">SOR</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">observation.hse</field>
             <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,tree,form,pivot,graph</field>
             <field name="domain">[]</field>
             <field name="context">{}</field>
             <field name="help" type="html">
@@ -90,7 +132,7 @@
                />
     	<menuitem id="SOR_hse_menu"
               	parent="SOR_menu"
-              	name="Creer un INPUT"
+              	name="Créer un INPUT"
               	action="act_open_sor_view"/>
 
 
