@@ -62,52 +62,37 @@ class Observation(models.Model):
     _defaults = {
         'priority': '0',
     }
-    kanban_state = fields.Selection([
-        ('normal', 'En Progres'),
-        ('done', 'Resoly'),
-        ('blocked', 'Refuser')], string='Kanban State',
-        copy=False, default='normal', required=True)
-
-    observation_refuser = fields.Char(
-        'Red Kanban Label',
-        default=lambda s: _('Refuser'),
-        required=True,
-        help='Override the default value displayed for the blocked state for kanban selection, when the observation or issue is in that stage.')
-    observation_resolu = fields.Char(
-        'Green Kanban Label',
-        default=lambda s: _('Resolu'),
-        required=True,
-        help='Override the default value displayed for the done state for kanban selection, when the observation or issue is in that stage.')
-    observation_normal = fields.Char(
-        'Grey Kanban Label',
-        default=lambda s: _('In Progress'),
-        required=True,
-        help='Override the default value displayed for the normal state for kanban selection, when the observation or issue is in that stage.')
-    auto_validation_kanban_state = fields.Boolean(
-        'Automatic kanban status',
-        default=False,
-        help="Automatically modify the kanban state when the HSE REPONSIBLE CREATE THE OBSERVATION ACTION for this SOR.\n"
-            " * THE FOLLOWING ACTION from the RESPONSIBLE will update the kanban state to 'RESOLU' (green bullet).\n")
-
+    state = fields.Selection([
+        ('draft', 'Brouillon'),
+        ('normal', 'En Progrès'),
+        ('done', 'Resolu'),
+        ('blocked', 'Refuser')],
+        string='Kanban State',
+        copy=False,
+        default='draft',
+        required=True)
     @api.model
     def create(self, vals):
         if vals:
             vals['reference'] = self.env['ir.sequence'].next_by_code('observation.hse') or _('New')
-            return super(Observation, self).create(vals)
+            res = super(Observation, self).create(vals)
+            res.state = 'normal'
+            return res
 
     def informer_responsable(self):
-            message_body = "Bonjour " + self.id_soumetteur.name + ","
-                            + "<br>Vous avez recu un input Urgent  " \
-                            + "<br>Type de risque : " + self.risque_critique.type_risque 
-                            + "<br>Date : " + str(self.date_creation) + \
-                    ]         '<br><br>Cordialement'
-            to = "hamza.natsu@gmail.com"
+            message_body = "Bonjour " + self.id_soumetteur.name + "," + \
+                           "<br>Vous avez recu un input Urgent  " + \
+                           "<br>Type de risque : " + self.risque_critique.type_risque + \
+                           "<br>Date : " + str(self.date_creation) + \
+                           '<br><br>Cordialement'
+            to = "adham.baq@gmail.com"
             data = {
             'subject': 'Observation Urgent',
             'body_html': message_body,
             'email_from': self.env.user.company_id.email,
             'email_to': to
             }
+            
             template_id = self.env['mail.mail'].create(data)
             if self.env['mail.mail'].send(template_id):
                 print("5/5")
@@ -132,7 +117,7 @@ class Observation(models.Model):
                 action_id = action_ids.id
 
                 view_id = self.env.ref('hse_action.action_form_view').id
-
+                self.write({'state': 'done'})
                 return {
                     'view_type': 'form',
                     'view_mode': 'form',
@@ -142,6 +127,11 @@ class Observation(models.Model):
                     'name': _('SOR Action'),
                     'res_id': action_id
                 }
+
+    @api.multi
+    def refuser_observation(self):
+        return self.write({'state': 'blocked'})
+
 
 class Risque(models.Model):
     _name = 'risque.r'
