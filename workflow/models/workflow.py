@@ -12,7 +12,7 @@ class Agent(models.Model):
         default=lambda s: s.env.user, index=True)
     
     agent_image = fields.Binary(
-        string='Photo
+        string='Photo'
         
     type_compte = fields.Selection(
         string="Type de Compte",
