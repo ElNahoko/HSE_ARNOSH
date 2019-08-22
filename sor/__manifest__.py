@@ -20,14 +20,18 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','mail','project'],
 
     # always loaded
     'data': [
-         'security/ir.model.access.csv',
-         'views/SOR_FORM_VIEW.xml',
+        'security/HSE_USER_GROUPS.xml',
+        'security/ir.model.access.csv',
+        'views/SOR_FORM_VIEW.xml',
         'views/SOR_KANBAN_VIEW.xml',
-         'data/SOR_sequence.xml',
+        'data/SOR_sequence.xml',
+        'report/report.xml',
+        'report/Security_Obsevation_Reports.xml'
+
     ],
     # only loaded in demonstration mode
     'demo': [
