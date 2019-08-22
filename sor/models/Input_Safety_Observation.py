@@ -82,7 +82,7 @@ class Observation(models.Model):
     def informer_responsable(self):
             message_body = "Bonjour " + self.id_soumetteur.name + "," + \
                            "<br>Vous avez recu un input Urgent  " + \
-                           "<br>Type de risque : " + self.risque_critique.type_risque + \
+                            "<br>Type de risque : " + self.risque_critique.type_risque + \
                            "<br>Date : " + str(self.date_creation) + \
                            '<br><br>Cordialement'
             to = "adham.baq@gmail.com"
@@ -92,7 +92,7 @@ class Observation(models.Model):
             'email_from': self.env.user.company_id.email,
             'email_to': to
             }
-            
+
             template_id = self.env['mail.mail'].create(data)
             if self.env['mail.mail'].send(template_id):
                 print("5/5")
@@ -131,6 +131,10 @@ class Observation(models.Model):
     @api.multi
     def refuser_observation(self):
         return self.write({'state': 'blocked'})
+
+    @api.multi
+    def Print_SOR(self):
+        return self.env.ref('sor.print_sor_reporting').report_action(self)
 
 
 class Risque(models.Model):
