@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <odoo>
-        
-        
         <record id="view_sor_form" model="ir.ui.view">
             <field name="name">SOR.form</field>
             <field name="model">observation.hse</field>
@@ -9,18 +7,18 @@
             <field name="arch" type="xml">
                 <form string="SOR">
                      <header>
-                        <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
+                         <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
                         <button name="informer_responsable" string="Urgent" type="object" class="oe_highlight" />
                         <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
-                        <button  name="Print_SOR" string="Print SOR" type="object" class="oe_highlight"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
+                         <button  name="Print_SOR" string="Print SOR" type="object" class="oe_highlight"/>
+                          <field name="state" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
                     </header>
                     <sheet>
                         <h1 class="mt0"> <field name="reference" class="oe_inline"/> </h1>
                       <group name="group_top">
                         <group name="group_left">
-                            <field name="projet_id"/>
-                            <field name="company_id"/>
+                          <field name="projet_id"/>
+                          <field name="company_id"/>
                             <field name="date_creation"/>
                             <field name="id_soumetteur"/>
                         </group>
@@ -28,16 +26,47 @@
                             <field name="risque_critique"/>
                             <field name="localisation"/>
                             <field name="priority" widget="priority"/>
-                            <field name="image_observation" widget="image_popup" class="oe_avatar"/>
+                          <field name="image_observation" widget="image_popup" class="oe_avatar"/>
                         </group>
                       </group>
                          <group name="group_bottom">
-                            <field name="description" widget="html"/>
+                        <field name="description" widget="html"/>
                          </group>
                     </sheet>
                 </form>
-                  </field>
-              </record>
+            </field>
+        </record>
+
+        <record id="SOR_search" model="ir.ui.view">
+            <field name="name">SOR.Search</field>
+            <field name="model">observation.hse</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Observation">
+                    <field name="id_soumetteur" />
+                    <field name="risque_critique" />
+                    <field name="priority" />
+                    <field name="date_creation" />
+                    <field name="projet_id" />
+                    <field name="company_id" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter name="id_soumetteur" string="Soumetteur"
+                            domain="[]" context="{'group_by':'id_soumetteur'}" />
+                        <filter name="risque_critique" string="Risque Critique"
+                            domain="[]" context="{'group_by':'risque_critique'}" />
+                        <filter name="priority" string="Priorite"
+                            domain="[]" context="{'group_by':'priority'}" />
+                        <filter name="date_creation" string="Date Creation"
+                            domain="[]" context="{'group_by':'date_creation'}" />
+                        <filter name="company_id" string="Entreprise"
+                            domain="[]" context="{'group_by':'company_id'}" />
+                        <filter name="projet_id" string="Projet"
+                            domain="[]" context="{'group_by':'projet_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
 
 
             <record model="ir.actions.act_window" id="act_open_sor_view">
@@ -56,7 +85,6 @@
             </field>
         </record>
 
-        
         <menuitem id="SOR_menu"
                 name="Observation INPUT"
                />
