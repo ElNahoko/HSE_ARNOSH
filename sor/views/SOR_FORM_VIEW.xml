@@ -7,8 +7,10 @@
             <field name="arch" type="xml">
                 <form string="SOR">
                      <header>
-                         <button name="create_action" string="Create Acion" type="object" class="oe_highlight" />
+                         <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
                         <button name="informer_responsable" string="Urgent" type="object" class="oe_highlight" />
+                        <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
+                          <field name="state" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
                     </header>
                     <sheet>
                         <h1 class="mt0"> <field name="reference" class="oe_inline"/> </h1>
