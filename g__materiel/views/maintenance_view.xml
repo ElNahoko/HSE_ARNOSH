@@ -18,6 +18,24 @@
             </p>
         	</field>
     </record>
+        <!-- action : demande de maintenance pour un equip  -->
+          <record id="demande_maint_action_from_equipment" model="ir.actions.act_window">
+        	<field name="name">Demande de Maintenance</field>
+        	<field name="res_model">demande.maint</field><!-- the action is going to this model-->
+        	<field name="view_type">form</field>
+        	<field name="view_mode">kanban,tree,form,graph</field>
+        	 <field name="context">{
+            'default_equipment_id': active_id,
+             }</field>
+        	<field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                   Ajouter une nouvelle maintenance
+            </p><p>
+                Suivis les maintenance des équipements
+                avec votre equipe d'employee.
+            </p>
+        	</field>
+    </record>
         <!-- equipement tree view -->
   <record id="equipement_tree_view" model="ir.ui.view">
          <field name="name">Equipement Tree</field>
@@ -27,9 +45,13 @@
                    <tree string="Equipements">
                        <field name="reference"/>
                        <field name="Nom_equip"/>
+                        <field name="categorie_id"/>
+                       <field name="technician_user_id"/>
+                       <field name="localisation_id"/>
                         <field name="utilisation"/>
                         <field name="quantity"/>
-                        <field name="emplacement"/>
+                       <field name="date_creation"/>
+
                     </tree>
 
           </field>
@@ -41,6 +63,13 @@
          <field name="arch" type="xml">
              <form string="Equipments">
              <sheet>
+                 <div class="oe_button_box" name="button_box">
+                     <button name="%(demande_maint_action_from_equipment)d"
+                            type="action"
+                            class="oe_stat_button" ><i class="fa fa-wrench" aria-hidden="true">Maintenance</i>
+
+                        </button>
+                 </div>
                  <field name="reference"/>
                      <div class="oe_title">
                     <label for="Nom_equip" class="oe_edit_only"/>
@@ -60,25 +89,73 @@
                 <notebook>
                      <page string="Localisation">
                             <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
+
                         </page>
                         <page string="Description">
                             <field name="commentaire"/>
                         </page>
                         <page string="Maintenance">
-
+                            <group name="maintenance">
+                                    <label for="periode" class="" string="Nombre de jour entre chaque maintenance"/>
+                                    <div class="o_row">
+                                        <field name="periode"/> jours
+                                    </div>
+                                    <label for="maintenance_duration" string="Durée de Maintenance "/>
+                                    <div class="o_row">
+                                        <field name="maintenance_duration"/> heurs
+                                    </div>
+                            </group>
+                            <group>
+                             <field name="technician_user_id"/>
+                            </group>
                         </page>
                 </notebook>
            </sheet>
         </form>
         </field>
   </record>
+         <!-- maintenance form view -->
+  <record id="maintenance_tree_form" model="ir.ui.view">
+         <field name="name">Maintenance Form</field>
+         <field name="model">demande.maint</field>
+         <field name="arch" type="xml">
+             <form string="Maintenance">
+                 <sheet>
+
+                       <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" string="Sujet" placeholder="Sujet de maintenance"/></h1>
+                        </div>
+                    <group>
+                            <group>
+                                <field name="equipement_id" options="{&quot;no_open&quot;: True}"/>
+                                <field name="date_planif" />
+                                <field name="description"/>
+                            </group>
+                            <group>
+                            <field name="user_id" options="{&quot;no_open&quot;: True}"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="date_demande" readonly="1" force_save="1"/>
+                            </group>
+                    </group>
+                 </sheet>
+             </form>
+         </field>
+  </record>
+
         <!-- main menu = Maintenance d'Equipements  -->
     	<menuitem id="main_menu"
               	name="Maintenance d'Equipement"
                 groups="base.group_user"/>
+
         <!-- second menu = equipement linked to action -->
     	<menuitem id="equip_menu" parent="main_menu"
                   name="Equipements" groups="base.group_user"
          action="equipement_menu_action"/>
+
+         <!-- second menu = maintenance requests linked to action
+    	<menuitem id="maint_menu" parent="main_menu"
+                  name="Maintenance" groups="base.group_user"
+         action="demande_maint_action"/>-->
 	</data>
 </odoo>
