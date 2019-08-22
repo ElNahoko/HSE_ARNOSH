@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- document Form view -->
+     <record id="action_form_view" model="ir.ui.view">
+            <field name="name">HSEdocument</field>
+            <field name="model">document</field>
+            <field name="arch" type="xml">
+               <form>
+          <sheet>
+            <group name="group_top">
+              <group name="group_left">
+                <field name="categorie" />
+              </group>
+              <group name="group_right">
+                <field name="description" />
+                <field name="Document_binaire" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+            </field>
+        </record>
+
+     <!-- document List view -->
+     <record id="action_tree_view" model="ir.ui.view">
+            <field name="name">Actidocumenton</field>
+            <field name="model">document</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="categorie"/>
+                    <field name="description"/>
+                    <field name="Nom_Document" readonly="1" invisible="1" />
+                    <field name="Document_binaire" filename="Nom_Document"/>
+                </tree>
+            </field>
+        </record>
+
+     <record id="oc_open_action_view" model="ir.actions.act_window">
+            <field name="name">Document HSE</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+
+              </p><p>
+
+              </p>
+            </field>
+        </record>
+
+
+        <menuitem id="doc_menu"
+                name="Documentation HSE"
+               />
+    	<menuitem id="doc_hse_menu"
+              	parent="doc_menu"
+              	name="Documents"
+              	action="oc_open_action_view"/>
+
+</odoo>
