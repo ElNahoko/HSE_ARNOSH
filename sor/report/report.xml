@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            string="SOR Reporting"
+            id="print_sor_reporting"
+            model="observation.hse"
+            report_type="qweb-pdf"
+            name="sor.report_sor"
+            file="sor.report_sor"
+        />
+    </data>
+</odoo>

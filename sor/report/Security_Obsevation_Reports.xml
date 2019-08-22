@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_sor">
+              <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+
+                        <h3 style="text-decoration:underline;text-align:center;"><b>SOR  Report</b></h3>
+                        <br/>
+                        <br/>
+                        <table width="99%" style="margin-left:50px;margin-top:5px;border: None solid black;">
+                            <tr>
+                                <td style="width:50px;height:25px" ><span>Reference: </span><span t-att-style="style" t-esc="o.reference"/></td>
+                                <td style="width:50px;height:25px" ><span>Projet  : </span><span t-att-style="style" t-esc="o.projet_id.name"/></td>
+                                <td style="width:50px;height:25px" ><span>Entreprise: </span><span t-att-style="style" t-esc="o.company_id.name"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                         <table width="99%" style="border:1px solid black;padding-left:1.16cm;">
+                             <thead>
+                                <th style="border:1px solid black;text-align:center;"
+                                    width="13%"
+                                    class="td4">Date creation</th>
+                                <th style="border:1px solid black;text-align:center;"
+                                    width="13%"
+                                    class="td4">Agent</th>
+                                <th style="border:1px solid black;text-align:center;"
+                                    width="13%"
+                                    class="td4">Localisation</th>
+                                <th style="border:1px solid black;text-align:center;"
+                                    width="13%"
+                                    class="td4">Type de Risque</th>
+                                 <th style="border:1px solid black;text-align:center;"
+                                     width="13%"
+                                     class="td4">Priorite</th>
+                            </thead>
+                               <tbody>
+                                     <tr style="border:1px solid black">
+                                        <td style="border:1px solid black;text-align:center;">
+                                            <span t-esc="o.date_creation"
+                                                  style="font-size:16px;"/>
+                                        </td>
+                                        <td style="border:1px solid black;text-align:center;">
+                                            <span t-esc="o.id_soumetteur.name"
+                                                  style="font-size:16px;"/>
+                                        </td>
+                                        <td style="border:1px solid black;text-align:center;">
+                                            <span t-esc="o.localisation"
+                                                  style="font-size:16px;"/>
+                                        </td>
+                                        <td style="border:1px solid black;text-align:center;">
+                                            <span
+                                                    t-esc="o.risque_critique.type_risque"
+                                                    style="font-size:16px;"/>
+                                        </td>
+                                    </tr>
+                               </tbody>
+                         </table>
+                         <br/>
+                         <br/>
+                    </div>
+                    <p style="page-break-after:always"></p>
+                </t>
+           </t>
+              </t>
+        </template>
+    </data>
+
+</odoo>
