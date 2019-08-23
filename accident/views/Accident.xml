@@ -63,7 +63,13 @@
             <field name="model">acc.acc</field>
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
-                <form string="Accident">
+                <form string="Accident" >
+                    <header>
+                        <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
+                        <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
+                        <button name="print_quotation" string="Print" type="object"  class="btn-primary o_sale_print"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
+                    </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                         </div>
@@ -136,7 +142,7 @@
                 </p>
             </field>
         </record>
-      
+
         <menuitem id="menu_lab_accident2" name="Accidents/Incidents" sequence="10"
             parent="menu_root_lab" action="act_open_lab_accident_view2"/>
 
