@@ -18,23 +18,114 @@
             </p>
         	</field>
     </record>
-        <!-- action : demande de maintenance pour un equip  -->
-          <record id="demande_maint_action_from_equipment" model="ir.actions.act_window">
-        	<field name="name">Demande de Maintenance</field>
-        	<field name="res_model">demande.maint</field><!-- the action is going to this model-->
+        <!-- action :  maintenance pour un equip  -->
+          <record id="demande_maint_form_view" model="ir.ui.view">
+        	<field name="name">Maintenance form</field>
+        	<field name="model">demande.maint</field>
+             <field name="arch" type="xml">
+                <form string="Maintenance">
+                    <sheet>
+                        <group>
+                            <group col="4" colspan="4">
+
+                                <field name="name"/>
+                                <field name="maintenance_type" readonly="1"/>
+                                <field name="user_id" readonly="1"/>
+                                <field name="equipement_id" readonly="1"/>
+                                <field name="priority" widget="priority"/>
+                                <label for="duree" string="Durée"/>
+                                <div class="o_row">
+                                <field name="duree" />heurs
+                                 </div>
+                                <field name="date_planif" />
+                                <field name="date_demande" readonly="1"/>
+
+                            </group>
+                         </group>
+                    </sheet>
+                </form>
+        	</field>
+    </record>
+        <!-- calendrier view de maintenances-->
+         <record id="maint_view_calendar" model="ir.ui.view">
+        <field name="name">equipment.request.calendar</field>
+        <field name="model">demande.maint</field>
+        <field name="arch" type="xml">
+            <calendar date_start="date_planif" date_delay="duree" color="user_id">
+                <field name="name"/>
+               <field name="maintenance_type"/>
+                <field name="user_id"/>
+            </calendar>
+        </field>
+    </record>
+        <!-- action for calendrier maintenances -->
+           <record id="maintenance_action_cal" model="ir.actions.act_window">
+        <field name="name">Maintenance Requests</field>
+        <field name="res_model">demande.maint</field>
+        <field name="view_mode">calendar,kanban,tree,form,pivot,graph</field>
+        <field name="view_id" ref="maint_view_calendar"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+               Ajouter une maintenance pour un equipement
+            </p><p>
+                Follow the process of the request and communicate with the collaborator.
+            </p>
+        </field>
+    </record>
+
+         <!-- action : local de maintenance pour un equip
+         <record id="local_menu_action" model="ir.actions.act_window">
+        	<field name="name">local</field>
+        	<field name="res_model">local.n</field>
         	<field name="view_type">form</field>
-        	<field name="view_mode">kanban,tree,form,graph</field>
-        	 <field name="context">{
-            'default_equipment_id': active_id,
-             }</field>
+        	<field name="view_mode">tree,form,kanban</field>
+        	<field name="domain">[]</field>
         	<field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                   Ajouter une nouvelle maintenance
-            </p><p>
-                Suivis les maintenance des équipements
+                   Ajouter un local
+            </p><p>g
+                Suivis et maintenance des équipements
                 avec votre equipe d'employee.
             </p>
         	</field>
+    </record>
+       <!- local tree view-->
+  <record id="maintenance_form_view" model="ir.ui.view">
+         <field name="name">local Form</field>
+         <field name="model">local.n</field>
+         <field name="arch" type="xml">
+
+                   <form string="localisation">
+                       <field name="localisation"/>
+                       <field name="equipements_id" invisible="1"/>
+                       <field name="date_creation" readonly="1"/>
+                    </form>
+
+          </field>
+  </record>-->
+          <!-- Category : views -->
+    <record id="category_view_form" model="ir.ui.view">
+        <field name="name">equipment.category.form</field>
+        <field name="model">categorie.equipement</field>
+        <field name="arch" type="xml">
+            <form string="Equipment Categories">
+                <sheet>
+                <div class="oe_button_box" name="button_box">
+
+                </div>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only" string="Nom Catégorie"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <field name="equipment_ids" invisible="1" />
+                    <label for="note" class="oe_edit_only" string="Description"/>
+                    <field name="note" />
+                </sheet>
+
+            </form>
+        </field>
     </record>
         <!-- equipement tree view -->
   <record id="equipement_tree_view" model="ir.ui.view">
@@ -64,11 +155,9 @@
              <form string="Equipments">
              <sheet>
                  <div class="oe_button_box" name="button_box">
-                     <button name="%(demande_maint_action_from_equipment)d"
-                            type="action"
-                            class="oe_stat_button" ><i class="fa fa-wrench" aria-hidden="true">Maintenance</i>
 
-                        </button>
+                     <button name="create_demande_maint" string="Maintenance"  icon="fa fa-wrench" type="object" class="oe_stat_button" />
+
                  </div>
                  <field name="reference"/>
                      <div class="oe_title">
@@ -88,22 +177,26 @@
                 </group>
                 <notebook>
                      <page string="Localisation">
-                            <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
 
+                         <group>
+
+                            <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
+                         </group>
+                         <!--<group>
+                               <label for="localisation_id.agents_related" class="" string="Agents disponibles"/>
+                                <field name="agents_related" widget="many2many_tags" />
+                         </group>-->
                         </page>
                         <page string="Description">
                             <field name="commentaire"/>
                         </page>
                         <page string="Maintenance">
                             <group name="maintenance">
-                                    <label for="periode" class="" string="Nombre de jour entre chaque maintenance"/>
+                                    <label for="type_maintenance" class="" string="Type de maintenance"/>
                                     <div class="o_row">
-                                        <field name="periode"/> jours
+                                        <field name="type_maintenance"/>
                                     </div>
-                                    <label for="maintenance_duration" string="Durée de Maintenance "/>
-                                    <div class="o_row">
-                                        <field name="maintenance_duration"/> heurs
-                                    </div>
+
                             </group>
                             <group>
                              <field name="technician_user_id"/>
@@ -153,9 +246,12 @@
                   name="Equipements" groups="base.group_user"
          action="equipement_menu_action"/>
 
-         <!-- second menu = maintenance requests linked to action
+        <!--<menuitem id="local_menu" parent="main_menu"
+                  name="location" groups="base.group_user"
+         action="local_menu_action"/>
+          second menu = maintenance requests linked to action-->
     	<menuitem id="maint_menu" parent="main_menu"
-                  name="Maintenance" groups="base.group_user"
-         action="demande_maint_action"/>-->
+                  name="Calendrier de maintenances" groups="base.group_user"
+         action="maintenance_action_cal"/>
 	</data>
 </odoo>
