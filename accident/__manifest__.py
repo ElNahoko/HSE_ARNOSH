@@ -25,7 +25,10 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'security/HSE_USER_GROUPS.xml',
         'views/views.xml',
+        'report/accident_report.xml',
+        'report/accident_report_template.xml',
         'views/Accident.xml',
         'views/templates.xml',
     ],
