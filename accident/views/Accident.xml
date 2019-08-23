@@ -67,7 +67,7 @@
                     <header>
                         <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
                         <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
-                        <button name="print_quotation" string="Print" type="object"  class="btn-primary o_sale_print"/>
+                        <button name="print_accident" string="Print" type="object"  class="btn-primary o_sale_print"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
                     </header>
                     <sheet>
