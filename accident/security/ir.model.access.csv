@@ -1,10 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 demo_adminreg,access.reg.reg,model_reg_reg,group_responsible,1,1,1,1
 demon_adminacc,access.acc.acc,model_acc_acc,group_responsible,1,1,1,1
-demo_admingra,access.gra.gra,model_gra_gra,group_responsible,1,1,1,1
 demo_userreg,access.reg.reg,model_reg_reg,group_user,1,1,1,0
 demon_useracc,access.acc.acc,model_acc_acc,group_user,1,1,1,0
-demo_usergra,access.gra.gra,model_gra_gra,group_user,1,1,1,0
 demo_userspreg,access.reg.reg,model_reg_reg,group_usersp,1,1,1,0
 demon_userspacc,access.acc.acc,model_acc_acc,group_usersp,1,1,1,0
-demo_userspgra,access.gra.gra,model_gra_gra,group_usersp,1,1,1,0
