@@ -10,31 +10,109 @@
                         <h3 style="text-decoration:underline;text-align:center;"><b>Accident  Report</b></h3>
                         <br/>
                         <br/>
-                        <table width="99%" style="margin-left:50px;margin-top:5px;border: None solid black;">
+                        <table width="99%" style="margin-left:50px;margin-top:5px;border: 1px solid black;">
                             <tr>
-                                <td style="width:50px;height:25px" ><span>Reference: </span><span t-att-style="style" t-esc="o.type"/></td>
+                                <td style="width:50px;height:25px" ><span>Image: </span><span t-att-style="style" t-esc="o.type"/></td>
+                                <td style="width:50px;height:25px" ><span>Enregistrement QHSE: </span></td>
+                                <td style="width:50px;height:25px" ><span>Date de Mise en Application: </span><span t-att-style="style" t-esc="o.date"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50px;height:25px" ><span></span></td>
+                                <td style="width:50px;height:25px" ><strong><span>Rapport : </span><span t-att-style="style" t-esc="o.type"/></strong></td>
+                                <td style="width:50px;height:25px" ><span></span></td>
                             </tr>
                         </table>
                         <br/>
                         <br/>
                          <table width="99%" style="border:1px solid black;padding-left:1.16cm;">
-                             <thead>
-                                <th style="border:1px solid black;text-align:center;"
-                                    width="13%"
-                                    class="td4">Date </th>
-                                 <th style="border:1px solid black;text-align:center;"
-                                     width="13%"
-                                     class="td4">Description</th>
-                            </thead>
                                <tbody>
                                      <tr style="border:1px solid black">
                                         <td style="border:1px solid black;text-align:center;">
-                                            <span t-esc="o.date"
-                                                  style="font-size:16px;"/>
+                                            <p><span style="text-decoration: underline;"><strong><span t-esc="o.type"
+                                                  style="font-size:16px;"/> :</strong></span></p>
+
+                                            <p>date et heure de l'<span t-esc="o.type"
+                                                  style="font-size:16px;"/> : <span t-esc="o.date"
+                                                  style="font-size:16px;"/></p>
+                                            <p>Lieu de l'incident : <span t-esc="o.lieu"
+                                                  style="font-size:16px;"/></p>
+                                            <p>Nom et Prénom de l'agent concerné : <span t-esc="o.id_soumetteur.name"
+                                                  style="font-size:16px;"/></p>
+                                            <p>Témoin : <span t-esc="o.temoin"
+                                                  style="font-size:16px;"/></p>
                                         </td>
+                                    </tr>
+                               </tbody>
+                         </table>
+                         <br/>
+                         <br/>
+                         <table width="99%" style="border:1px solid black;padding-left:1.16cm;">
+                               <tbody>
+                                     <tr style="border:1px solid black">
+                                        <td style="border:1px solid black;text-align:center;">
+
+                                            <p>Dégâts Matériels : <span t-esc="o.Mat"
+                                                  style="font-size:16px;"/></p>
+                                            <p>Dégâts Humains : <span t-esc="o.grav"
+                                                  style="font-size:16px;"/></p>
+                                            <p>Dégâts Environnementales : <span t-esc="o.enviro"
+                                                  style="font-size:16px;"/></p>
+                                        </td>
+                                    </tr>
+                               </tbody>
+                         </table>
+                         <br/>
+                         <br/>
+                        <table width="99%" style="border:1px solid black;padding-left:1.16cm;">
+                               <tbody>
+                                     <tr style="border:1px solid black">
                                          <td style="border:1px solid black;text-align:center;">
+                                            <span style="text-decoration: underline;"><strong>Circonstances :</strong></span>
+                                        </td>
+                                        <td style="border:1px solid black;text-align:center;">
                                             <span
                                                     t-esc="o.descaccident"
+                                                    style="font-size:16px;"/>
+                                        </td>
+                                    </tr>
+                                   <tr style="border:1px solid black">
+                                         <td style="border:1px solid black;text-align:center;">
+                                            <span style="text-decoration: underline;"><strong>Conséquences :</strong></span>
+                                        </td>
+                                        <td style="border:1px solid black;text-align:center;">
+                                            <span
+                                                    t-esc="o.consq"
+                                                    style="font-size:16px;"/>
+                                        </td>
+                                    </tr>
+                                   <tr style="border:1px solid black">
+                                         <td style="border:1px solid black;text-align:center;">
+                                            <span style="text-decoration: underline;"><strong>Causes Probables :</strong></span>
+                                        </td>
+                                        <td style="border:1px solid black;text-align:center;">
+                                            <span
+                                                    t-esc="o.cause"
+                                                    style="font-size:16px;"/>
+                                        </td>
+                                    </tr>
+                               </tbody>
+                         </table>
+                         <br/>
+                         <br/>
+                        <table width="99%" style="border:1px solid black;padding-left:1.16cm;">
+                               <tbody>
+                                     <tr style="border:1px solid black">
+                                         <td style="border:1px solid black;text-align:center;" colspan="2">Illustrations :</td>
+                                    </tr>
+                                   <tr style="border:1px solid black">
+                                         <td style="border:1px solid black;text-align:center;">
+                                            <span
+                                                    t-esc="o.img"
+                                                    style="font-size:16px;"/>
+                                        </td>
+                                        <td style="border:1px solid black;text-align:center;">
+                                            <span
+                                                    t-esc="o.img"
                                                     style="font-size:16px;"/>
                                         </td>
                                     </tr>
