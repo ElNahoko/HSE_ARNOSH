@@ -11,13 +11,6 @@ class regle(models.Model):
     icon = fields.Binary(string="Icone",  )
     desc = fields.Char(string="Description", required=False, )
 
-class gravite(models.Model):
-    _name = 'gra.gra'
-    _rec_name = 'grav'
-
-    grav = fields.Char(string="Gravité", required=False, )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-
-
 class accident(models.Model):
     _name = 'acc.acc'
     _rec_name = 'type'
@@ -36,12 +29,19 @@ class accident(models.Model):
         copy=False,
         default='draft',
         required=True)
+    grav = fields.Char(string="Dégât Humain", required=False, )
+    Mat = fields.Char(string="Dégât Matériel", required=False, )
+    enviro = fields.Char(string="Dégât Environnemental", required=False, )
+    lieu = fields.Char(string="Lieu", required=False, )
+    temoin = fields.Char(string="Témoin", required=False, )
     type = fields.Selection(string="Type", selection=[('Accident', 'Accident'), ('Incident', 'Incident'), ], required=False, )
-    gravite = fields.Many2one('gra.gra', string="Gravité", required=False, )
+    consq = fields.Char(string="Conséquences" ,required=True, )
+    cause = fields.Char(string="Causes Propables" , required=True,)
     regle = fields.Many2one('reg.reg', string="Règle de sécurité", required=False, )
     date = fields.Datetime(string="Date",default=lambda s: fields.Datetime.now(),invisible=False,readonly=True, required=False, )
     descaccident = fields.Char(string="Déscription", required=False, )
     img = fields.Binary(string="Photo",  )
+
 
 
     @api.model
@@ -99,3 +99,5 @@ class accident(models.Model):
     @api.multi
     def refuser_observation(self):
         return self.write({'state': 'blocked'})
+
+
