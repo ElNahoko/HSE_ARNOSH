@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <kanban>
                     <field name="id" />
-                    <field name='gravite'/>
+                    <field name='grav'/>
                     <field name='img'/>
                     <field name='descaccident'/>
                     <templates>
@@ -19,7 +19,7 @@
                                     <strong>
                                         <ul>
                                             <li>type :<field name="type"/></li>
-                                            <li>Gravité :<field name="gravite"/></li>
+                                            <li>Gravité :<field name="grav"/></li>
                                             <li>Règles :<field name="regle"/></li>
                                         </ul>
                                     </strong>
@@ -37,7 +37,7 @@
             <field name="arch" type="xml">
                 <graph string="Invoices">
                     <field name="type"/>
-                    <field name="gravite" type="measure"/>
+                    <field name="grav" type="measure"/>
                 </graph>
             </field>
         </record>
@@ -49,7 +49,9 @@
             <field name="arch" type="xml">
                 <tree string="accident">
                     <field name="type" />
-                    <field name="gravite" />
+                    <field name="grav" />
+                    <field name="Mat" />
+                    <field name="enviro" />
                     <field name="regle" />
                     <field name="date" />
                     <field name="descaccident" />
@@ -91,9 +93,15 @@
                         </div>
                         <group>
                             <group>
-                                <field name="gravite" />
-                                <field name="regle" />
+                                <field name="grav" />
+                                <field name="Mat" />
+                                <field name="enviro" />
                                 <field name="date" />
+                                <field name="regle" />
+                                <field name="lieu" />
+                                <field name="temoin" />
+                                <field name="consq" />
+                                <field name="cause" />
                             </group>
                         </group>
                       <field  name="descaccident" widget="html"/>
@@ -109,15 +117,15 @@
             <field name="arch" type="xml">
                 <search string="accident">
                     <field name="type" />
-                    <field name="gravite" />
+                    <field name="grav" />
                     <field name="date" />
                     <field name="regle" />
                     <newline />
                     <group expand="0" string="Group By...">
                         <filter name="type" string="Type"
                             domain="[]" context="{'group_by':'type'}" />
-                        <filter name="gravite" string="Gravité"
-                            domain="[]" context="{'group_by':'gravite'}" />
+                        <filter name="grav" string="Gravité"
+                            domain="[]" context="{'group_by':'grav'}" />
                         <filter name="date" string="Date"
                             domain="[]" context="{'group_by':'date'}" />
                         <filter name="regle" string="Règle"
