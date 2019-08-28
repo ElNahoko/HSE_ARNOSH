@@ -7,6 +7,8 @@
                 <kanban>
                     <field name="id" />
                     <field name='grav'/>
+                    <field name='Mat'/>
+                    <field name='enviro'/>
                     <field name='img'/>
                     <field name='descaccident'/>
                     <templates>
@@ -19,11 +21,16 @@
                                     <strong>
                                         <ul>
                                             <li>type :<field name="type"/></li>
-                                            <li>Gravité :<field name="grav"/></li>
+                                            <li>Dégâts Humains :<field name="grav"/></li>
+                                            <li>Dégâts Matériels :<field name="Mat"/></li>
+                                            <li>Dégâts environnementales :<field name="enviro"/></li>
                                             <li>Règles :<field name="regle"/></li>
                                         </ul>
                                     </strong>
                                 </div>
+                                <div class="oe_kanban_bottom_right">
+                                        <field name="state" widget="state_selection" groups="base.group_user"/>
+                            </div>
                             </div>
                         </t>
                     </templates>
@@ -67,6 +74,7 @@
             <field name="arch" type="xml">
                 <form string="Accident" >
                     <header>
+                        <button name="action_quotation_send" string="Send by Email" type="object" />
                         <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
                         <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
                         <button name="print_accident" string="Print" type="object"  class="btn-primary o_sale_print"/>
