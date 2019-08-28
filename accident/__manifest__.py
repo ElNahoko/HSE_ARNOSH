@@ -21,11 +21,13 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base'],
+    'depends': ['mail'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'security/HSE_USER_GROUPS.xml',
+        'data/mail_data.xml',
         'views/views.xml',
         'report/accident_report.xml',
         'report/accident_report_template.xml',
