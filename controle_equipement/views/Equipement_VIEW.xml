@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<odoo>
+  <!-- Equipement Action -->
+
+        <record model="ir.actions.act_window" id="act_open_equip_view">
+            <field name="name">Equipements</field>
+        	<field name="res_model">equipment.ctl</field><!-- the action is going to this model-->
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form,kanban</field>
+        	<field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                   Ajouter votre premier équipement
+            </p><p>
+                Suivis et maintenance des équipements
+                avec votre équipe d'employee.
+            </p>
+        	</field>
+        </record>
+
+
+<!-- Equipement Form View -->
+
+  <record id="equipement_view_form" model="ir.ui.view">
+         <field name="name">Equipement.Form</field>
+         <field name="model">equipment.ctl</field>
+         <field name="arch" type="xml">
+             <form string="Equipments">
+             <sheet>
+               <div class="oe_button_box" name="button_box">
+                  <button name="ajout_controle"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-ticket">
+                    <field string="Contrôles" name="controle_count" widget="statinfo"/>
+                  </button>
+                 </div>
+                 <field name="ref_equip"/>
+                     <div class="oe_title">
+                    <label for="Nom_equip" class="oe_edit_only"/>
+                    <h1><field name="Nom_equip" string="Name" placeholder="Nom Equipment"/></h1>
+                    </div>
+                <group>
+                        <group>
+                            <field name="categorie_id" options="{&quot;no_open&quot;: True}"/>
+                            <field name="utilisation"/>
+                        </group>
+                        <group>
+                            <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
+                            <field name="quantity"/>
+                            <field name="date_utilisation"/>
+                        </group>
+                </group>
+                <notebook>
+                        <page string="Maintenance">
+                            <group name="maintenance">
+                                <label for="type_controle" class="" string="Type de maintenance"/>
+                                <div class="o_row">
+                                    <field name="type_controle"/>
+                                </div>
+                                 <label for="periode" class="" string="Nombre de jours entre controle"/>
+                                <div class="o_row">
+                                   <field name="periode"/>
+                                  </div>
+                            </group>
+                             <group>
+                             <field name="technician_user_id"/>
+                            </group>
+                        </page>
+                        <page string="Description">
+                            <field name="commentaire"/>
+                        </page>
+
+                </notebook>
+           </sheet>
+           </form>
+        </field>
+  </record>
+
+    <record id="equipment_tree" model="ir.ui.view">
+        <field name="name">equipment.tree</field>
+        <field name="model">equipment.ctl</field>
+        <field name="arch" type="xml">
+             <tree string="Equipements">
+                       <field name="ref_equip"/>
+                       <field name="categorie_id"/>
+                       <field name="technician_user_id"/>
+                       <field name="localisation_id"/>
+                       <field name="quantity"/>
+                       <field name="type_controle"/>
+                       <field name="date_creation"/>
+            </tree>
+        </field>
+    </record>
+
+     <menuitem id="main_menu"
+                name="Contrôles et Equipements"
+    />
+
+    <menuitem id="Equip_main_menu"
+                    parent="main_menu"
+                    name="Gestion interne"
+                    />
+
+     <menuitem id="Equip_menu"
+                    parent="Equip_main_menu"
+                    name="Equipements"
+                    action="act_open_equip_view"/>
+
+
+</odoo>

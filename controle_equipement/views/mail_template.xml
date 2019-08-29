@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="example_email_template" model="mail.template">
+          <field name="name">Example e-mail template</field>
+          <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+          <field name="subject">Control ${object.name}</field>
+          <field name="email_to">noha.drakus123@gmail.com</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="base.model_alert_alert"/>
+          <field name="auto_delete" eval="True"/>
+	  <field name="body_html">
+          <![CDATA[
+	      <field name="body_html">
+	          <p>Cher employé: ${(object.name)},<br/><br/>
+		Vous avez une nouvelle demande de contrôle <br/></p>
+		<ul>
+		<li>Pour l'équipement : ${(object.equipement_id)},</li>
+		<li>Date Plannifié :  ${(object.date_planif)},</li>
+		</ul>
+                  Cordialement,<br/>
+                  ${(object.company_id.name)}
+	      ]]>
+	  </field>
+       </record>
+    </data>
+</odoo>

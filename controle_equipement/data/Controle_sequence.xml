@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record model="ir.sequence" id="seq_ctl">
+            <field name="name">Contrl</field>
+            <field name="code">control_seq</field>
+            <field name="prefix">CTRL</field>
+            <field name="padding">3</field>
+        </record>
+</odoo>

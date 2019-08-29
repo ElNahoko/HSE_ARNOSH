@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- actions to alert tree view -->
+    <record id="alerts_menu_action" model="ir.actions.act_window">
+        	<field name="name">Demandes de contôles </field>
+        	<field name="res_model">alert.alert</field><!-- the action is going to this model-->
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form,kanban</field>
+        	<field name="domain">[]</field>
+        	<field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                   Ajouter votre première demande de contrôle
+            </p><p>
+                Suivis et contrôle des équipements
+                avec votre équipe d'employee.
+            </p>
+        	</field>
+    </record>
+    <!-- alerts tree view -->
+  <record id="equipement_tree_view" model="ir.ui.view">
+         <field name="name">Demandes de contôles Tree</field>
+         <field name="model">alert.alert</field>
+         <field name="arch" type="xml">
+
+                   <tree string="Demandes de contrôles">
+                       <field name="name"/>
+                       <field name="equipement_id"/>
+                        <field name="mail_tech"/>
+                        <field name="status"/>
+                        <field name="date_envoi" />
+
+                    </tree>
+
+          </field>
+  </record>
+
+ <!-- alert controle Form View -->
+
+        <record id="view_alert_controle_form" model="ir.ui.view">
+            <field name="name">Alert.control.form</field>
+            <field name="model">alert.alert</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="alert_control">
+                     <header>
+                         <button name="send_mail_to_technicien"
+                                 string="envoyer" type="object" class="oe_highlight"
+                           attrs="{'invisible':[('status', '!=', 'sent')]}"/>
+                     </header>
+                    <sheet>
+                          <h1 class="mt0"> Création d'alert de contrôle</h1>
+                      <group name="group_top">
+                        <group name="group_left">
+                            <field name="name"/>
+                            <field name="equipement_id"/>
+                        </group>
+                          <group name="group_right">
+                               <field name="mail_tech"/>
+                              <field name="date_planif"/>
+                          </group>
+                      </group>
+                         <group name="group_bottom">
+                            <field name="description" widget="html"/>
+                              <field name="date_envoi"  readonly="1" />
+                             <field name="status" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
+
+                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    <menuitem id="Controles_menu"
+              	parent="main_menu"
+              	name="Boite de Contrôles"
+              	action="alerts_menu_action"/>
+
+</odoo>

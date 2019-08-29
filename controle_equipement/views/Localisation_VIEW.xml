@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+
+ <record id="local_view_form" model="ir.ui.view">
+         <field name="name">Localisation Form</field>
+         <field name="model">local.n</field>
+         <field name="arch" type="xml">
+             <form string="Equipments">
+             <sheet>
+                <group>
+
+                            <field name="localisation" />
+                            <field name="Localisation_Af" options="{&quot;no_open&quot;: True}"/>
+
+
+                </group>
+             </sheet>
+             </form>
+         </field>
+ </record>
+
+</odoo>
