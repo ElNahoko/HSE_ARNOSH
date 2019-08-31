@@ -28,8 +28,9 @@
         'data/Equipement_sequence.xml',
         'views/Localisation_VIEW.xml',
         'views/categorie_VIEW.xml',
-        'views/alert_control_VIEW.xml',
+        'views/controles_view.xml',
         'data/Controle_sequence.xml',
+        'views/alert_control_VIEW.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
