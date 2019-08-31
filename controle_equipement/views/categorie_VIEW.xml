@@ -19,17 +19,24 @@
          <field name="name">Categorie Form</field>
          <field name="model">categorie.ctl</field>
          <field name="arch" type="xml">
-             <form string="Equipments">
-             <sheet>
-                <group>
+             <form string="Catégorie">
+                 <sheet>
+                    <group>
 
-                            <field name="name" />
-                            <field name="note"/>
+                       <label for="name" class="" string="Nom catégorie"/>
+                            <div class="o_row">
+                                <field name="name"/>
+                            </div>
+                         <label for="note" class="" string="Commentaire"/>
+                                    <div class="o_row">
+                                        <field name="note"/>
+                        </div>
+                    </group>
+                    <group class="oe_subtotal_footer">
                      <field name="equip_ids" widget="one2many_list" />
+                    </group>
 
-
-                </group>
-             </sheet>
+                 </sheet>
              </form>
          </field>
  </record>
@@ -39,8 +46,10 @@
         <field name="model">categorie.ctl</field>
         <field name="arch" type="xml">
              <tree string="Catégories">
-                       <field name="name" />
-                        <field name="note"/>
+
+                    <field name="name"/>
+                    <field name="note"/>
+
 
             </tree>
         </field>

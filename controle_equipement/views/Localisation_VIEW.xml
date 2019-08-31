@@ -5,14 +5,16 @@
          <field name="name">Localisation Form</field>
          <field name="model">local.n</field>
          <field name="arch" type="xml">
-             <form string="Equipments">
+             <form string="Local">
              <sheet>
                 <group>
 
                             <field name="localisation" />
+                     <label for="Localisation_Af" class="" string="Agents actif"/>
+                                    <div class="o_row">
                             <field name="Localisation_Af" options="{&quot;no_open&quot;: True}"/>
 
-
+                                    </div>
                 </group>
              </sheet>
              </form>

@@ -1,54 +1,50 @@
-<!--<?xml version="1.0"?>-->
-<!--<odoo>-->
-<!--  &lt;!&ndash; Equipement Action &ndash;&gt;-->
+<?xml version="1.0"?>
+<odoo>
+  <!-- controle Action -->
 
-<!--        <record model="ir.actions.act_window" id="act_open_equip_view">-->
-<!--            <field name="name">Equipements</field>-->
-<!--        	<field name="res_model">equipment.ctl</field>&lt;!&ndash; the action is going to this model&ndash;&gt;-->
-<!--        	<field name="view_type">form</field>-->
-<!--        	<field name="view_mode">tree,form,kanban</field>-->
-<!--        	<field name="help" type="html">-->
-<!--                <p class="o_view_nocontent_smiling_face">-->
-<!--                   Ajouter votre premier équipement-->
-<!--            </p><p>-->
-<!--                Suivis et maintenance des équipements-->
-<!--                avec votre équipe d'employee.-->
-<!--            </p>-->
-<!--        	</field>-->
-<!--        </record>-->
+        <record model="ir.actions.act_window" id="act_open_ctl_view">
+            <field name="name">Controle.action.view</field>
+        	<field name="res_model">controle.ctl</field><!-- the action is going to this model-->
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form,kanban</field>
+        	<field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                   Remplire un nouveau contrôle d'équipement
+                </p>
+        	</field>
+        </record>
 
 
-<!--&lt;!&ndash; Equipement Form View &ndash;&gt;-->
+<!-- controle Form View -->
 
-<!--  <record id="equipement_view_form" model="ir.ui.view">-->
-<!--         <field name="name">Equipement.Form</field>-->
-<!--         <field name="model">equipment.ctl</field>-->
-<!--         <field name="arch" type="xml">-->
-<!--             <form string="Equipments">-->
-<!--             <sheet>-->
-<!--                &lt;!&ndash; <div class="oe_button_box" name="button_box">-->
-<!--                  <button name="create_demande_maint"-->
-<!--                    type="object"-->
-<!--                    class="oe_stat_button"-->
-<!--                    icon="fa-ticket">-->
-<!--                    <field string="Contrôles" name="controle_count" widget="statinfo"/>-->
-<!--                  </button>-->
-<!--                 </div>&ndash;&gt;-->
-<!--                 <field name="ref_equip"/>-->
+  <record id="ctl_view_form" model="ir.ui.view">
+         <field name="name">Controle.Form</field>
+         <field name="model">controle.ctl</field>
+         <field name="arch" type="xml">
+             <form string="Contrôles">
+                 <header> </header>
+             <sheet>
+<!--                 <button name="send_mail_to_technicien"-->
+<!--                                 string="envoyer" type="object" class="oe_highlight"-->
+<!--                           attrs="{'invisible':[('status', '!=', 'sent')]}"/>-->
+<!--         -->
+               <field name="state" widget="statusbar"/>
 <!--                     <div class="oe_title">-->
 <!--                    <label for="Nom_equip" class="oe_edit_only"/>-->
 <!--                    <h1><field name="Nom_equip" string="Name" placeholder="Nom Equipment"/></h1>-->
 <!--                    </div>-->
 <!--                <group>-->
-<!--                        <group>-->
-<!--                            <field name="categorie_id" options="{&quot;no_open&quot;: True}"/>-->
-<!--                            <field name="utilisation"/>-->
-<!--                        </group>-->
-<!--                        <group>-->
-<!--                            <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>-->
-<!--                            <field name="quantity"/>-->
-<!--                            <field name="date_utilisation"/>-->
-<!--                        </group>-->
+                        <group>
+                             <field name="equip_id" />
+                            <field name="date_control"/>
+                            <field name="controle_type" />
+
+                       </group>
+                       <group>
+                           <field name="conforme" widget="checkbox"/>
+                           <field name="comment" widget='html' />
+
+                        </group>
 <!--                </group>-->
 <!--                <notebook>-->
 <!--                        <page string="Maintenance">-->
@@ -71,40 +67,17 @@
 <!--                        </page>-->
 
 <!--                </notebook>-->
-<!--           </sheet>-->
-<!--           </form>-->
-<!--        </field>-->
-<!--  </record>-->
-
-<!--    <record id="equipment_tree" model="ir.ui.view">-->
-<!--        <field name="name">equipment.tree</field>-->
-<!--        <field name="model">equipment.ctl</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--             <tree string="Equipements">-->
-<!--                       <field name="ref_equip"/>-->
-<!--                       <field name="categorie_id"/>-->
-<!--                       <field name="technician_user_id"/>-->
-<!--                       <field name="localisation_id"/>-->
-<!--                       <field name="quantity"/>-->
-<!--                       <field name="type_controle"/>-->
-<!--                       <field name="date_creation"/>-->
-<!--            </tree>-->
-<!--        </field>-->
-<!--    </record>-->
-
-<!--     <menuitem id="main_menu"-->
-<!--                name="Contrôles et Equipements"-->
-<!--    />-->
-
-<!--    <menuitem id="Equip_main_menu"-->
-<!--                    parent="main_menu"-->
-<!--                    name="Gestion interne"-->
-<!--                    />-->
-
-<!--     <menuitem id="Equip_menu"-->
-<!--                    parent="Equip_main_menu"-->
-<!--                    name="Equipements"-->
-<!--                    action="act_open_equip_view"/>-->
+           </sheet>
+           </form>
+        </field>
+  </record>
 
 
-<!--</odoo>-->
+
+     <menuitem id="ctl_menu"
+                    parent="main_menu"
+                    name="Contrôles"
+                    action="act_open_ctl_view"/>
+
+
+</odoo>

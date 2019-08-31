@@ -69,6 +69,9 @@
                         <page string="Description">
                             <field name="commentaire"/>
                         </page>
+                     <page string="Contrôles">
+                            <field name="controle_ids" widget="one2many"/>
+                        </page>
 
                 </notebook>
            </sheet>
@@ -80,8 +83,9 @@
         <field name="name">equipment.tree</field>
         <field name="model">equipment.ctl</field>
         <field name="arch" type="xml">
-             <tree string="Equipements">
+             <tree string="Equipements" editable="bottom">
                        <field name="ref_equip"/>
+                       <field name="Nom_equip"/>
                        <field name="categorie_id"/>
                        <field name="technician_user_id"/>
                        <field name="localisation_id"/>

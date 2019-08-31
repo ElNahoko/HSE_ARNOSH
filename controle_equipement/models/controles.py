@@ -92,7 +92,7 @@ class alertControle(models.Model):
                        "<li> Date Plannifié: " + str(self.date_planif) + "</li></ul>" + \
                        "</ul><br/>Veuillez remplire le formulaire de contrôle concernat cet équipement , " + \
                        '<br/>Cordialement,' + self.env.user.company_id + '.'
-        to = "noha.drakus123@gmail.com"  # self.env['agent.modul'].browse(id).mail_emp
+        to = self.mail_tech  # noha.drakus123@gmail.com self.env['agent.modul'].browse(id).mail_emp
         data = {
             'subject': "Contrôle d'un équipement",
             'body_html': message_body,
