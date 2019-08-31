@@ -78,7 +78,7 @@ class alertControle(models.Model):
     @api.onchange('status')
     def _onchange_date_envoi(self):
         if self.status == 'sent':
-            return self.write({'date_envoi': lambda s: fields.Datetime.now()})  # still not working ...!
+             self.write({'date_envoi': fields.Datetime.now()})  # still not working ...!
 
     # envois par mail une demande de contrôle
     @api.one

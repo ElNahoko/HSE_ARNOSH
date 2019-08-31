@@ -41,12 +41,16 @@ class Controles(models.Model):
         string='commentaire',
     )
     conforme = fields.Selection([
-        ('oui', 'Oui'),
-        ('non', 'Non'),
-    ],
-        string='Comforme',
-        default='non',
+        ('o', 'Oui'),
+        ('n', 'Non'),
+    ], string='Comforme',
+        default='n',
     )
+    # boolean fields for conform.field -->in order to make a checkbox in view
+    # _columns = {
+    #     'o': fields.Boolean('Oui'),
+    #     'n': fields.Boolean('Non'),
+    # }
     state = fields.Selection([
         ('done', 'Résolut'),
         ('notyet', 'En cours'),  # en cours
@@ -200,6 +204,9 @@ class Categorie(models.Model):
     _name = 'categorie.ctl'
 
     name = fields.Char('Nom catégorie', required=True, translate=True)
+    image_categorie = fields.Binary(
+        string='Image catégorie',
+        required=True)
 
     note = fields.Text(
         'Description', translate=True
