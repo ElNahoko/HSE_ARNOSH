@@ -38,12 +38,12 @@
                              <field name="equip_id" />
                             <field name="date_control"/>
                             <field name="controle_type" />
-
                        </group>
-                       <group>
-                           <field name="conforme" widget="checkbox"/>
+                          <group>
+                            <field name="conforme" widget="radio"/>
+                        </group>
+                        <group>
                            <field name="comment" widget='html' />
-
                         </group>
 <!--                </group>-->
 <!--                <notebook>-->
@@ -72,8 +72,24 @@
         </field>
   </record>
 
+    <!-- Tree of contrôles -->
 
+     <record id="contrôle_equip_tree" model="ir.ui.view">
+        <field name="name">controle.tree</field>
+        <field name="model">controle.ctl</field>
+        <field name="arch" type="xml">
+             <tree string="Contrôles">
 
+                    <field name="date_control"/>
+                    <field name="controle_type"/>
+                    <field name="equip_id"/>
+                    <field name="user_tech"/>
+                    <field name="conforme"/>
+                    <field name="comment"/>
+
+            </tree>
+        </field>
+    </record>
      <menuitem id="ctl_menu"
                     parent="main_menu"
                     name="Contrôles"

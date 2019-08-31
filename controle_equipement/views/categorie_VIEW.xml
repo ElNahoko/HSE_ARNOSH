@@ -15,6 +15,8 @@
         	</field>
         </record>
 
+<!-- Form of catégorie -->
+
  <record id="categori_view_form" model="ir.ui.view">
          <field name="name">Categorie Form</field>
          <field name="model">categorie.ctl</field>
@@ -22,7 +24,7 @@
              <form string="Catégorie">
                  <sheet>
                     <group>
-
+                        <field name="image_categorie" widget="image_popup" class="oe_avatar"/>
                        <label for="name" class="" string="Nom catégorie"/>
                             <div class="o_row">
                                 <field name="name"/>
@@ -41,6 +43,8 @@
          </field>
  </record>
 
+    <!-- Tree of catégorie -->
+
      <record id="categorie_equip_tree" model="ir.ui.view">
         <field name="name">categorie.eq.tree</field>
         <field name="model">categorie.ctl</field>
@@ -55,7 +59,37 @@
         </field>
     </record>
 
-
+ <!-- Kanban of catégorie -->
+ <record model="ir.ui.view" id="kanban_view_cat">
+            <field name="name">Categories.kanban</field>
+            <field name="model">categorie.ctl</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                   <field name="name"/>
+                    <field name="image_categorie"/>
+                <templates>
+                        <t t-name="kanban-box">
+                          <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('categorie.ctl', 'image_categorie', record.id.value)" class="oe_resource_picture"/>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <strong><field name="name"/></strong>
+                                        <div name="tags"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                </kanban>
+            </field>
+        </record>
 
     <menuitem id="Catégories_menu"
                     parent="Equip_main_menu"
