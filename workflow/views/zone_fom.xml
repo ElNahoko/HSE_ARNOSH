@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Zone Hierarchy -->
+        <record id="view_zone_hierarchy" model="ir.ui.view">
+            <field name="name">zone.hier</field>
+            <field name="model">local.n</field>
+            <field name="field_parent">child_ids</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Company">
+                    <field name="date_creation"/>
+                    <field name="localisation"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="zone_form_view" model="ir.ui.view">
+            <field name="name">local.form</field>
+            <field name="model">local.n</field>
+            <field name="arch" type="xml">
+                <form string="zone form">
+                    <sheet>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="date_creation"/>
+                                <notebook>
+                                    <page string="List Zones">
+                                        <field name="child_ids">
+                                            <tree string='Zone' editable="bottom">
+                                                <field name="localisation"/>
+                                                <field name="parent_id"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </group>
+                            <group name="group_right">
+                                <field name="localisation"/>
+                                <field name="parent_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="zone_action" model="ir.actions.act_window">
+            <field name="name">Zone</field>
+            <field name="type">ir.actions._window</field>
+            <field name="res_model">local.n</field>
+            <field name="context">{'group_by':'parent_id'}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="UNIQUE_ID_categ" name="Configuration" parent="workflow_menu"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="Zone_menu" name="Zone" parent="UNIQUE_ID_categ" action="zone_action"/>
+
+    </data>
+</odoo>
