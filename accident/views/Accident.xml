@@ -74,7 +74,7 @@
             <field name="arch" type="xml">
                 <form string="Accident" >
                     <header>
-                        <button name="action_quotation_send" string="Send by Email" type="object" />
+                        <button name="informer_responsable" string="Urgent" type="object" class="oe_highlight" />
                         <button name="create_action" states="normal" string="Create Action" type="object" class="oe_highlight"/>
                         <button name="refuser_observation" states="normal" string="Refuser Action" type="object" class="oe_highlight"/>
                         <button name="print_accident" string="Print" type="object"  class="btn-primary o_sale_print"/>
