@@ -3,6 +3,9 @@
 import datetime
 from odoo import models, fields, api , _
 
+class res_partner(models.Model):
+    _inherit = 'res.partner'
+
 class regle(models.Model):
     _name = 'reg.reg'
     _rec_name = 'nom'
@@ -14,7 +17,7 @@ class regle(models.Model):
 class accident(models.Model):
     _name = 'acc.acc'
     _rec_name = 'type'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread']
 
 
     id_soumetteur = fields.Many2one(
@@ -66,14 +69,18 @@ class accident(models.Model):
            action_sor_accident = {
                 'source': 'Accident',
                 'originateur': rec.id_soumetteur.name,
-                'gravite': rec.gravite.grav,
+                'Dégâts Humains': rec.grav,
+                'Dégâts Matériels': rec.Mat,
+                'Dégâts Environnementales': rec.enviro,
                 'etat': 'Ouvert',
                 'date_creation': datetime.datetime.now()
                 }
            action_sor_incident = {
                 'source': 'Incident',
                 'originateur': rec.id_soumetteur.name,
-                'gravite': rec.gravite.grav,
+                'Dégâts Humains': rec.grav,
+                'Dégâts Matériels': rec.Mat,
+                'Dégâts Environnementales': rec.enviro,
                 'etat': 'Ouvert',
                 'date_creation': datetime.datetime.now()
             }
@@ -103,38 +110,24 @@ class accident(models.Model):
         return self.write({'state': 'blocked'})
 
     @api.multi
-    def action_quotation_send(self):
-        '''
-        This function opens a window to compose an email, with the edi sale template message loaded by default
-        '''
-        self.ensure_one()
-        ir_model_data = self.env['ir.model.data']
-        try:
-            template_id = ir_model_data.get_object_reference('accident', 'email_template_edi_sale')[1]
-        except ValueError:
-            template_id = False
-        try:
-            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
-        except ValueError:
-            compose_form_id = False
-        ctx = {
-            'default_model': 'acc.acc',
-            'default_res_id': self.ids[0],
-            'default_use_template': bool(template_id),
-            'default_template_id': template_id,
-            'default_composition_mode': 'comment',
-            'mark_so_as_sent': True,
-            'custom_layout': "mail.mail_notification_paynow",
-            'proforma': self.env.context.get('proforma', False),
-            'force_email': True
-        }
-        return {
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'mail.compose.message',
-            'views': [(compose_form_id, 'form')],
-            'view_id': compose_form_id,
-            'target': 'new',
-            'context': ctx,
-        }
+    def informer_responsable(self):
+            message_body = "Bonjour " + self.id_soumetteur.name + "," + \
+                           "<br>Vous avez recu un input Urgent  " + \
+                            "<br>Dégâts Humains : " + self.grav + \
+                            "<br>Dégâts Matériels : " + self.Mat + \
+                            "<br>Dégâts Environnementales : " + self.enviro + \
+                           "<br>Date : " + str(self.date) + \
+                           '<br><br>Cordialement'
+            to = "hamza@gmail.com"
+            data = {
+            'subject': 'Observation Urgente de '+self.type,
+            'body_html': message_body,
+            'email_from': self.env.user.company_id.email,
+            'email_to': to
+            }
+
+            template_id = self.env['mail.mail'].create(data)
+            if self.env['mail.mail'].send(template_id):
+                print("5/5")
+            else:
+                print("0/5")
