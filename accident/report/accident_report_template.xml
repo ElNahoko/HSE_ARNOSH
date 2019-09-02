@@ -11,18 +11,17 @@
                         <br/>
                         <br/>
                         <table width="99%" style="margin-left:50px;margin-top:5px;border: 1px solid black;">
-						<tbody>
-                            <tr style="border:1px solid black">
-                                <td style="width:50px;height:25px" ><span>Image: </span><span t-field="o.img" t-field-options='{"widget": "image"}'/></td>
+                            <tr>
+                                <td style="width:50px;height:25px" ><span>Image: </span><span t-att-style="style" t-esc="o.type"/></td>
                                 <td style="width:50px;height:25px" ><span>Enregistrement QHSE: </span></td>
-                                <td style="width:50px;height:25px" ><span>Date de Mise en Application: </span><span t-att-style="style" t-esc="o.date"/></td>
+                                <td style="width:50px;height:25px" ><span>Date de Mise en Application: </span><br/>
+                                                                    <span t-att-style="style" t-esc="o.date"/></td>
                             </tr>
-                            <tr style="border:1px solid black">
-                                <td style="width:50px;height:25px" ></td>
+                            <tr>
+                                <td style="width:50px;height:25px" ><span></span></td>
                                 <td style="width:50px;height:25px" ><strong><span>Rapport : </span><span t-att-style="style" t-esc="o.type"/></strong></td>
-                                <td style="width:50px;height:25px" ></td>
+                                <td style="width:50px;height:25px" ><span></span></td>
                             </tr>
-						</tbody>
                         </table>
                         <br/>
                         <br/>
@@ -108,10 +107,10 @@
                                     </tr>
                                    <tr style="border:1px solid black">
                                          <td style="border:1px solid black;text-align:center;">
-                                            <span t-field="o.img" t-field-options='{"widget": "image"}'/>
+                                            <img t-attf-src="data:image/*;base64,{{o.img}}"/>
                                         </td>
                                         <td style="border:1px solid black;text-align:center;">
-                                            <span t-field="o.img" t-field-options='{"widget": "image"}'/>
+                                            <img t-attf-src="data:image/*;base64,{{o.img}}"/>
                                         </td>
                                     </tr>
                                </tbody>
