@@ -1,0 +1,84 @@
+<odoo>
+  <data>
+        <record model="ir.ui.view" id="kanban_view_cat">
+            <field name="name">Catégorie Kanban</field>
+            <field name="model">document.categorie</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id" />
+                    <field name='categorie'/>
+                    <field name='date'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <ul>
+                                            <li>Catégorie :<field name="categorie"/></li>
+                                            <li>Date :<field name="date"/></li>
+                                        </ul>
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_cat_tree" model="ir.ui.view">
+            <field name="name">cat.tree</field>
+            <field name="model">document.categorie</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="regle">
+                    <field name="categorie" />
+                    <field name="date" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_cat_form" model="ir.ui.view">
+            <field name="name">cat.form</field>
+            <field name="model">document.categorie</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="regle">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <group>
+                                <field  name="categorie" />
+                                <field  name="date" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_cat">
+            <field name="name">Catégoties</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">document.categorie</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!--<field name="search_view_id" ref="view_lab_regle_search" />-->
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Créer une règle.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="doc_menu" name="Documentation HSE" sequence="40"/>
+        <menuitem id="menu_doc_cat" name="Catégories" sequence="10"
+            parent="doc_menu" action="act_open_cat"/>
+
+
+
+  </data>
+</odoo>
