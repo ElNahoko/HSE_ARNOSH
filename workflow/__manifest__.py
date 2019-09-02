@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','mail'],
 
     # always loaded
     'data': [
@@ -29,6 +29,7 @@
         'security/ir.model.access.csv',
         'views/workflow_kanban.xml',
         'views/workflow_form.xml',
+        'views/zone_fom.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
