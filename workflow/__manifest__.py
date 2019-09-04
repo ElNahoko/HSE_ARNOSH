@@ -30,6 +30,7 @@
         'views/workflow_kanban.xml',
         'views/workflow_form.xml',
         'views/zone_fom.xml',
+        'views/Historique_View.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
