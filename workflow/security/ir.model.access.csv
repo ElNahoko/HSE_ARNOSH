@@ -3,3 +3,4 @@ admin_acc,access.agent.a,model_agent_a,group_responsible,1,1,1,1
 admin_aa,access.local.n,model_local_n,group_user,1,1,1,1
 user_aaa,access.agent.a,model_agent_a,group_responsible,1,0,0,0
 user_xx,access.local.n,model_local_n,group_user,1,0,0,0
+ts,access.historiq,model_historiq,group_responsible,1,1,1,1
