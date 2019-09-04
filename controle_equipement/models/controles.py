@@ -16,11 +16,11 @@ class alertControle(models.Model):
     equipement_id = fields.Many2one(
         'equipment.ctl', string='Equipement'
     )
-    cat_equipement =fields.Char(
+    cat_equipement = fields.Char(
         related='equipement_id.cat_name',
         readonly=True
     )
-    ref_equipement=fields.Char(
+    ref_equipement = fields.Char(
         related='equipement_id.ref_equip',
         readonly=True
     )
@@ -28,19 +28,17 @@ class alertControle(models.Model):
         string="Planifié le ",
         required=True,
     )
-    # user_tech = fields.Many2one(
-    #     'agent.a',
-    #     related='equipement_id.technician_user_id.name',
-    #     store=True,readonly=True
-    #     # compute='_tech_depends_on_equipement'
-    # )
-    mail_tech =fields.Char(
+    user_tech = fields.Char(
+         related='equipement_id.tec_name',
+         store=True,readonly=True
+     )
+    mail_tech = fields.Char(
         related='equipement_id.mail_tec',
-        store=True, readonly=True
+        store=True, string= "envoyé à"
     )
     local_control = fields.Char(
         related='equipement_id.local_name',
-        store=True,readonly=True
+        store=True, readonly=True
     )
     description = fields.Char(
         string='description',
@@ -69,16 +67,20 @@ class alertControle(models.Model):
     @api.model
     def create(self, values):
         if values:
-            #     vals['reference'] = self.env['ir.sequence'].next_by_code('observation.hse') or _('New')
+            # vals['reference'] = self.env['ir.sequence'].next_by_code('observation.hse') or _('New')
             res = super(alertControle, self).create(values)
             res['status'] = 'created'
+            # send the alert via mail
+            self.send_mail_to_technicien()
             return res
 
     # update date_envoi when state is "sent"
     @api.onchange('status')
     def _onchange_date_envoi(self):
         if self.status == 'sent':
-             self.write({'date_envoi': fields.Datetime.now()})  # still not working ...!
+            self.date_envoi = fields.Datetime.now()
+            # self.write({'date_envoi': fields.Datetime.now()})  # still not working ...!
+
 
     # envois par mail une demande de contrôle
     @api.one
@@ -91,17 +93,18 @@ class alertControle(models.Model):
                        "<li> Trouvé dans la localisation suivante :" + self.local_control + "</li>" + \
                        "<li> Date Plannifié: " + str(self.date_planif) + "</li></ul>" + \
                        "</ul><br/>Veuillez remplire le formulaire de contrôle concernat cet équipement , " + \
-                       '<br/>Cordialement,' + self.env.user.company_id + '.'
-        to = self.mail_tech  # noha.drakus123@gmail.com self.env['agent.modul'].browse(id).mail_emp
+                       '<br/>Cordialement,' + str(self.env.user.company_id) + '.'
+        # to = str(self.mail_tech)   noha.drakus123@gmail.com self.env['agent.modul'].browse(id).mail_emp
         data = {
             'subject': "Contrôle d'un équipement",
             'body_html': message_body,
             'email_from': self.env.user.company_id.email,
-            'email_to': to
+            'email_to': self.mail_tech
         }
         template_id = self.env['mail.mail'].create(data)
         sending = self.env['mail.mail'].send(template_id)
         if template_id:
+            self.date_envoi = fields.Datetime.now()
             return self.write({'status': 'sent'})
             print("sent !")
         else:

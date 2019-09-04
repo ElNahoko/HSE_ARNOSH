@@ -30,7 +30,8 @@ class Controles(models.Model):
     )
     user_tech = fields.Char(
         string='Responsable technicien',
-        # readonly="1"
+        default = lambda self: self.env.user,
+         readonly="1"
     )
     date_creation = fields.Datetime(
         string="date creation",
@@ -100,7 +101,7 @@ class Equipement(models.Model):
         string="Description",
     )
     technician_user_id = fields.Many2one(
-        'agent.a', 'Responsable Technique', required=True
+        'res.users', 'Responsable Technique', required=True
     )
     # related fields -->to be used in controle models..----
     cat_name = fields.Char(
@@ -108,7 +109,11 @@ class Equipement(models.Model):
         store=True
     )
     mail_tec = fields.Char(
-        related='technician_user_id.mail_agent',
+        related='technician_user_id.email',
+        store=True
+    )
+    tec_name = fields.Char(
+        related='technician_user_id.name',
         store=True
     )
     local_name = fields.Char(
