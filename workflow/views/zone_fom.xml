@@ -22,10 +22,18 @@
             <field name="arch" type="xml">
                 <form string="zone form">
                     <sheet>
+                         <field name="image" widget="image_popup" class="oe_avatar"/>
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="date_creation"/>
-                                <notebook>
+                                <field name="risque_du_zone"  style="width:40%%"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="localisation"/>
+                                <field name="parent_id"/>
+                            </group>
+                        </group>
+                        <notebook>
                                     <page string="List Zones">
                                         <field name="child_ids">
                                             <tree string='Zone' editable="bottom">
@@ -34,20 +42,14 @@
                                             </tree>
                                         </field>
                                     </page>
-                                </notebook>
-                            </group>
-                            <group name="group_right">
-                                <field name="localisation"/>
-                                <field name="parent_id"/>
-                            </group>
-                        </group>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
         <record id="zone_action" model="ir.actions.act_window">
-            <field name="name">Zone</field>
-            <field name="type">ir.actions._window</field>
+            <field name="name">Zone Act</field>
+            <field name="type">ir.actions.act_window</field>
             <field name="res_model">local.n</field>
             <field name="context">{'group_by':'parent_id'}</field>
             <field name="view_mode">tree,form</field>
