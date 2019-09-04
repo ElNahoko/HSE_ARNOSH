@@ -6,7 +6,11 @@
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
                 <form string="Agent">
+                     <header>
+                         <button name="create_action" string="Historique" type="object" class="oe_highlight" />
+                     </header>
                     <sheet>
+
                           <field name="agent_image" widget="image_popup" class="oe_avatar"/>
                     <div name="title_name" class="oe_title">
                             <h1>
