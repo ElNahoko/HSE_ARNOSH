@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Zone Hierarchy -->
+        <record id="historique_tree_view" model="ir.ui.view">
+            <field name="name">Historique</field>
+            <field name="model">historiq</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Company">
+                    <field name="date_affectation"/>
+                    <field name="nom_agent"/>
+                    <field name="post_occupee"/>
+                    <field name="zone_affecte"/>
+                </tree>
+            </field>
+        </record>
+      <record id="view_HI_form" model="ir.ui.view">
+            <field name="name">ahistoriq</field>
+            <field name="model">historiq</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="HISTORIQUE">
+                    <sheet>
+                    <div name="title_name" class="oe_title">
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                      <group name="group_top">
+                        <group name="group_left">
+                            <field name="date_affectation"/>
+                            <field name="nom_agent"/>
+
+                        </group>
+                        <group name="group_right">
+                            <field name="post_occupee"/>
+                            <field name="zone_affecte" widget="many2many_tags" options="{'limit': 0, 'create': true, 'create_edit': true, 'search_more': true}"/>
+                        </group>
+                      </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="historique_action" model="ir.actions.act_window">
+            <field name="name">histo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">historiq</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="historique_menu" name="Historique" parent="UNIQUE_ID_categ" action="historique_action"/>
+
+
+    </data>
+</odoo>
