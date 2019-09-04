@@ -3,7 +3,7 @@
   <!-- controle Action -->
 
         <record model="ir.actions.act_window" id="act_open_ctl_view">
-            <field name="name">Controle.action.view</field>
+            <field name="name">Contrôles</field>
         	<field name="res_model">controle.ctl</field><!-- the action is going to this model-->
         	<field name="view_type">form</field>
         	<field name="view_mode">tree,form,kanban</field>
@@ -27,24 +27,24 @@
 <!--                 <button name="send_mail_to_technicien"-->
 <!--                                 string="envoyer" type="object" class="oe_highlight"-->
 <!--                           attrs="{'invisible':[('status', '!=', 'sent')]}"/>-->
-<!--         -->
-               <field name="state" widget="statusbar"/>
-<!--                     <div class="oe_title">-->
-<!--                    <label for="Nom_equip" class="oe_edit_only"/>-->
-<!--                    <h1><field name="Nom_equip" string="Name" placeholder="Nom Equipment"/></h1>-->
-<!--                    </div>-->
-<!--                <group>-->
-                        <group>
+
+<!--               <field name="state" widget="statusbar"/>-->
+                     <div class="oe_title">
+                    <h1>Formulaire de contrôle :</h1>
+                     </div>
+                    <group name="group_top">
+                        <group name="group_left">
                              <field name="equip_id" />
                             <field name="date_control"/>
                             <field name="controle_type" />
                        </group>
-                          <group>
+                          <group name="group_right">
                             <field name="conforme" widget="radio"/>
                         </group>
-                        <group>
-                           <field name="comment" widget='html' />
-                        </group>
+                    </group>
+                    <group name="group_bottom">
+                       <field name="comment" widget='html' />
+                    </group>
 <!--                </group>-->
 <!--                <notebook>-->
 <!--                        <page string="Maintenance">-->

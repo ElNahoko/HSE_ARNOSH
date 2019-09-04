@@ -45,10 +45,11 @@
                      <header>
                          <button name="send_mail_to_technicien"
                                  string="envoyer" type="object" class="oe_highlight"
-                           attrs="{'invisible':[('status', '!=', 'sent')]}"/>
+                           attrs="{'invisible':[('status', '=', 'sent')]}"/>
+                         <field name="status" widget="statusbar" statusbar_visible="draft,created,sent"/>
                      </header>
                     <sheet>
-                          <h1 class="mt0"> Création d'alert de contrôle</h1>
+                          <h1 class="mt0"> Alert de contrôle</h1>
                       <group name="group_top">
                         <group name="group_left">
                             <field name="name"/>
@@ -62,7 +63,7 @@
                          <group name="group_bottom">
                             <field name="description" widget="html"/>
                               <field name="date_envoi"  readonly="1" />
-                             <field name="status" widget="statusbar" statusbar_visible="draft,normal,done,blocked"/>
+
 
                          </group>
                     </sheet>
