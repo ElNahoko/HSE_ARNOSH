@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+eng_res,access.engin,model_engin,group_responsible,1,1,1,1
+eng_ag,access.engin,model_engin,group_user,1,0,0,0
+cont,access.control.engin,model_control_engin,base.group_user,1,1,1,1
+demande_res,access.pro.control,model_pro_control,group_responsible,1,1,1,1
+demande_ag,access.pro.control,model_pro_control,group_user,0,0,0,0

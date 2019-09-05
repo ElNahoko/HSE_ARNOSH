@@ -1,0 +1,86 @@
+<odoo>
+
+    <data>
+
+
+
+        <record model="ir.actions.act_window" id="engin_control">
+            <field name="name">Engin control</field>
+            <field name="res_model">control.engin</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+        	<field name="domain">[]</field>
+        	<field name="help" type="html">
+            	<p class="oe_view_nocontent_create">Create The First
+            	</p>
+        	</field>
+         </record>
+
+        <record id="engin_cview" model="ir.ui.view">
+
+            <field name="name">Engin cForm</field>
+
+            <field name="model">control.engin</field>
+
+            <field name="arch" type="xml">
+
+                      <form string="Enginc">
+                          <sheet>
+                              <header>
+                                  <button name="%(report_eng)d" string="Print" type="action" />
+                              </header>
+
+                              <group>
+                                  <group>
+
+                                      <field name="engin_id" readonly="1"/>
+                                      <field name="date_control" />
+                                      <field name="current_user" readonly="1"/>
+                                  </group>
+                                  <group>
+
+
+                                                        <field name="etat_bip_recul" widget="radio"/>
+                                                        <field name="etat_retroviseur" widget="radio"/>
+                                                        <field name="etat_ceinture" widget="radio"/>
+                                  </group>
+                                  <group>
+                                                        <field name="etat_exticteur" widget="radio"/>
+                                                        <field name="etat_frein" widget="radio"/>
+                                                        <field name="etat_eclairage" widget="radio"/>
+
+
+                                  </group>
+                              </group>
+
+                          </sheet>
+                        </form>
+            </field>
+        </record>
+
+            <record model="ir.ui.view" id="tree_control_engin">
+                  <field name="name">control list</field>
+                  <field name="model">control.engin</field>
+                  <field name="arch" type="xml">
+
+                    <tree create="0">
+                        <field name="date_control" />
+                        <field name="current_user" readonly="1"/>
+                        <field name="etat_bip_recul" />
+                        <field name="etat_retroviseur" />
+                        <field name="etat_ceinture" />
+                        <field name="etat_exticteur" />
+                        <field name="etat_frein" />
+                        <field name="etat_eclairage" />
+
+
+                        <field name="date_control"/>
+
+                    </tree>
+                  </field>
+            </record>
+
+
+    </data>
+</odoo>
+

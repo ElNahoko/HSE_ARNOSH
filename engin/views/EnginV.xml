@@ -1,0 +1,184 @@
+<odoo>
+
+  <data>
+
+      <!-- Engin view -->
+
+      <record model="ir.actions.act_window" id="engin_list">
+            <field name="name">Engin</field>
+            <field name="res_model">engin</field>
+            <field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+        	<field name="domain">[]</field>
+        	<field name="help" type="html">
+            	<p class="oe_view_nocontent_create">Creer votre premier engin
+            	</p>
+        	</field>
+      </record>
+
+      <!-- Engin tree -->
+
+      <record model="ir.ui.view" id="tree_engin">
+              <field name="name">Engin list</field>
+              <field name="model">engin</field>
+              <field name="arch" type="xml">
+
+                <tree>
+
+                  <field name="type"/>
+                  <field name="matricule"/>
+                  <field name="date_fin_assurance"/>
+
+                </tree>
+              </field>
+      </record>
+
+      <!--engin form view-->
+
+      <record id="engin_view" model="ir.ui.view">
+
+            <field name="name">Engin Form</field>
+            <field name="model">engin</field>
+            <field name="arch" type="xml">
+
+                      <form string="Engin">
+                          <header>
+                              <button name="Controler_engin" string="Controler Engin" type="object" class="oe_highlight"/>
+
+
+                          </header>
+
+                          <sheet>
+                              <group>
+                                <group name="group_general1">
+                                    <field name="matricule"/>
+                                </group>
+                              </group>
+
+                              <notebook>
+                                  <page string="Information General" name="information">
+                                    <group>
+
+                                            <group>
+                                                <field name="type"/>
+                                                <field name="image_carte"/>
+                                            </group>
+                                            <group>
+                                                <field name="date_fin_assurance"/>
+                                            </group>
+                                            <group>
+                                                <field name="agent_id"/>
+                                            </group>
+                                    </group>
+                                  </page>
+                                  <page string="Les Controles" name="control">
+
+                                      <field name="control_id" options="{'no_quick_create': True}"/>
+                                  </page>
+                              </notebook>
+
+
+                       </sheet>
+                </form>
+            </field>
+      </record>
+
+
+      <record id="mail.action_view_mail_mail" model="ir.actions.act_window">
+            <field name="name">Emails</field>
+            <field name="res_model">mail.mail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="mail.view_mail_search"/>
+        </record>
+
+      <!-- Demande de control view -->
+
+    <record model="ir.actions.act_window" id="demande_list">
+            <field name="name">Demande control</field>
+            <field name="res_model">pro.control</field>
+            <field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+        	<field name="domain">[]</field>
+        	<field name="help" type="html">
+            	<p class="oe_view_nocontent_create">Creer votre premiere demande de control
+            	</p>
+        	</field>
+      </record>
+
+
+      <record model="ir.ui.view" id="tree_demande">
+              <field name="name">liste des demandes</field>
+              <field name="model">pro.control</field>
+              <field name="arch" type="xml">
+
+                <tree>
+
+                  <field name="sujet"/>
+                  <field name="enginP_id" widget="many2many_tags"/>
+                  <field name="date_du_control"/>
+                    <field name="state"/>
+
+
+                </tree>
+              </field>
+      </record>
+      <!--engin form view-->
+
+      <record id="demande_view" model="ir.ui.view">
+
+            <field name="name">Demander un control</field>
+            <field name="model">pro.control</field>
+            <field name="arch" type="xml">
+
+                      <form string="Demandes">
+
+                          <sheet>
+                              <header>
+                                  <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,exception"/>
+                              </header>
+
+                             <group>
+                                 <group>
+                                     <field name="sujet"/>
+                                 </group>
+                                 <group>
+                                     <field name="enginP_id" widget="many2many_tags"/>
+                                     <field name="date_du_control"/>
+                                 </group>
+                                 <group>
+                                     <field name="agent_control"/>
+                                     <field name="commentaire"/>
+                                 </group>
+                                 <group>
+
+                                     <button name="demanderc" string="Envoyer " type="object" class="oe_highlight"/>
+
+
+                                 </group>
+                             </group>
+                       </sheet>
+                </form>
+            </field>
+      </record>
+
+
+      <menuitem id="Engin_menu"
+              	name="Engins"/>
+
+      <menuitem id="engin_engin_menu"
+              	parent="Engin_menu"
+              	name="Liste des engins"
+              	action="engin_list"/>
+      <menuitem id="engin_demande_control_menu"
+              	parent="Engin_menu"
+              	name="Demandes de control"
+              	action="demande_list"/>
+      <!--menuitem id="engin_mail_menu"
+              	parent="Engin_menu"
+              	name="Mes mails"
+              	action="mail.action_view_mail_mail"/-->
+
+  </data>
+</odoo>
