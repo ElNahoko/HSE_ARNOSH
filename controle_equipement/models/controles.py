@@ -89,11 +89,13 @@ class alertControle(models.Model):
                        "<br>Vous avez reçus une nouvelle demande de contrôle" + \
                        "<br/><ul>" + \
                        "<h2>Equipement Référencé par :" + self.ref_equipement + "</h2>" + \
+                       "<li>Sujet :" + self.name + "</li>" + \
                        "<li> De catégorie :" + self.cat_equipement + "</li>" + \
                        "<li> Trouvé dans la localisation suivante :" + self.local_control + "</li>" + \
                        "<li> Date Plannifié: " + str(self.date_planif) + "</li></ul>" + \
-                       "</ul><br/>Veuillez remplire le formulaire de contrôle concernat cet équipement , " + \
-                       '<br/>Cordialement,' + str(self.env.user.company_id) + '.'
+                       "</ul><br/>" + self.description + \
+                       "Veuillez remplire le formulaire de contrôle de cet équipement, " + \
+                       '<br/>Cordialement,' + str(self.env.user.company_id.name) + '.'
         # to = str(self.mail_tech)   noha.drakus123@gmail.com self.env['agent.modul'].browse(id).mail_emp
         data = {
             'subject': "Contrôle d'un équipement",
@@ -102,8 +104,7 @@ class alertControle(models.Model):
             'email_to': self.mail_tech
         }
         template_id = self.env['mail.mail'].create(data)
-        sending = self.env['mail.mail'].send(template_id)
-        if template_id:
+        if self.env['mail.mail'].send(template_id):
             self.date_envoi = fields.Datetime.now()
             return self.write({'status': 'sent'})
             print("sent !")

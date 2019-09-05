@@ -6,7 +6,7 @@
             <field name="name">Contrôles</field>
         	<field name="res_model">controle.ctl</field><!-- the action is going to this model-->
         	<field name="view_type">form</field>
-        	<field name="view_mode">tree,form,kanban</field>
+        	<field name="view_mode">tree,form,kanban,pivot,graph</field>
         	<field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                    Remplire un nouveau contrôle d'équipement
@@ -35,16 +35,17 @@
                     <group name="group_top">
                         <group name="group_left">
                              <field name="equip_id" />
+                            <field name="equip_categorie" />
+                            <field name="type_equip" />
                             <field name="date_control"/>
                             <field name="controle_type" />
                        </group>
                           <group name="group_right">
                             <field name="conforme" widget="radio"/>
+                              <field name="comment" widget='html' />
                         </group>
                     </group>
-                    <group name="group_bottom">
-                       <field name="comment" widget='html' />
-                    </group>
+
 <!--                </group>-->
 <!--                <notebook>-->
 <!--                        <page string="Maintenance">-->
@@ -83,6 +84,8 @@
                     <field name="date_control"/>
                     <field name="controle_type"/>
                     <field name="equip_id"/>
+                   <field name="equip_categorie" />
+                   <field name="type_equip" />
                     <field name="user_tech"/>
                     <field name="conforme"/>
                     <field name="comment"/>
@@ -90,6 +93,19 @@
             </tree>
         </field>
     </record>
+   <!-- report for controle
+    <report
+    id="controles_report"
+    model="controle.ctl"
+    string="Contrôle Equipement"
+    report_type="qweb-pdf"
+    name="account.report_invoice"
+    file="account.report_invoice"
+    attachment_use="True"
+    attachment="(object.state in ('open','paid')) and
+        ('INV'+(object.number or '').replace('/','')+'.pdf')"
+    />-->
+
      <menuitem id="ctl_menu"
                     parent="main_menu"
                     name="Contrôles"

@@ -16,8 +16,19 @@ class Controles(models.Model):
         readonly=True,
         index=True, default=lambda self: _('New')
     )
+    # ----equipement infos ---
     equip_id = fields.Many2one(
         'equipment.ctl', string='Equipement'
+    )
+    equip_categorie = fields.Char(
+        string="Catégorie",
+        related='equip_id.cat_name',
+        readonly=True
+    )
+    type_equip = fields.Char(
+        string='Type',
+        related='equip_id.nom_equip',
+        readonly=True
     )
     date_control = fields.Datetime(
         string="Date du contrôle ",
@@ -29,9 +40,9 @@ class Controles(models.Model):
         string=' Contrôle', default="3"
     )
     user_tech = fields.Char(
-        string='Responsable technicien',
-        default = lambda self: self.env.user,
-         readonly="1"
+        string='Contrôleur',
+        default=lambda self: self.env.user.name,
+        readonly=True
     )
     date_creation = fields.Datetime(
         string="date creation",
@@ -66,6 +77,10 @@ class Controles(models.Model):
             vals['ref_ctl'] = self.env['ir.sequence'].next_by_code('control_seq') or _('New')
         return super(Controles, self).create(vals)
 
+    # @api.multi
+    # def print_controle(self):
+    #     return self.env.ref('controle.ctl.controles_report').report_action(self)
+
 
 class Equipement(models.Model):
     _name = 'equipment.ctl'
@@ -77,7 +92,7 @@ class Equipement(models.Model):
         readonly=True,
         default=lambda self: _('New')
     )
-    Nom_equip = fields.Char(
+    nom_equip = fields.Char(
         string="Type",
         required=True
     )  # search='_search_equipement' ,
@@ -89,6 +104,10 @@ class Equipement(models.Model):
     localisation_id = fields.Many2one(
         'local.n', string='Localisation',
         required=True
+    )
+    local_parent =fields.Char(
+        string ='local supérieur',
+        related='localisation_id.parent_name'
     )
     utilisation = fields.Char(
         string="Utilisation",
@@ -125,8 +144,8 @@ class Equipement(models.Model):
     )
     ## infos de type de controles pour cet équipement ##
     controle_count = fields.Integer(
+        string="Nombre de controles",
         compute='_compute_controle_count',
-        string="Nombre de controles", store=True
     )
     type_controle = fields.Selection(
         [('1', 'Journalier'), ('2', 'Hebdomadaire'),
@@ -158,7 +177,8 @@ class Equipement(models.Model):
     #   count number of controle done for this equip"
     @api.multi
     def _compute_controle_count(self):
-        self.controle_count = len(self.controle_ids)
+        for control in self:
+            control.controle_count = len(control.controle_ids)
 
     # @api.onchange('type_controle')
     # def _onchange_periode_type(self):
@@ -179,30 +199,27 @@ class Equipement(models.Model):
     @api.multi
     def ajout_controle(self):
         ctl_obj = self.env["controle.ctl"]
-        for rec in self:
-            if rec.ref_equip:
-                control = {
-                    #   'name' : 'Maintenance pour l équipement :'+ rec.id ,
-                    'controle_type': rec.type_controle,
-                    'equipement_id': rec.id,
-                    'user_id': rec.technician_user_id.id,
-                    #  'date_demande': datetime.datetime.now()
-                }
+        # for rec in self:
+        #     if rec.ref_equip:
+        #         # control = {
+        #         #     'controle_type': rec.type_controle,
+        #         #     'equip_id': rec.id,
+        #         #     #  'date_demande': datetime.datetime.now()
+        #         # }
+        control_create = ctl_obj.create({'equip_id': self.id})
+        control_id = control_create.id
 
-                control_create = ctl_obj.create(control)
-                control_id = control_create.id
-
-                view_id = self.env.ref('controle_equipement.ctl_view_form').id
-                # retourné la vue du controle
-                return {
-                    'view_type': 'form',
-                    'view_mode': 'form',
-                    'res_model': 'controle.ctl',
-                    'view_id': view_id,
-                    'type': 'ir.actions.act_window',
-                    'name': _('Controles'),
-                    'res_id': control_id
-                }
+        view_id = self.env.ref('controle_equipement.ctl_view_form').id
+        # retourné la vue du controle
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'controle.ctl',
+            'view_id': view_id,
+            'type': 'ir.actions.act_window',
+            'name': _('Controles'),
+            'res_id': control_id
+        }
 
 
 class Categorie(models.Model):
@@ -212,7 +229,6 @@ class Categorie(models.Model):
     image_categorie = fields.Binary(
         string='Image catégorie',
         required=True)
-
     note = fields.Text(
         'Description', translate=True
     )
@@ -225,8 +241,6 @@ class Categorie(models.Model):
 
 # localisation herited from workflow.localisation
 class Localisation_ctl(models.Model):
-    # _name = 'local.n'
-    # _inherit = ['local.n', 'agent.a']
     _inherit = 'local.n'
 
     equipements_id = fields.One2many(
