@@ -21,23 +21,38 @@
             <field name="arch" type="xml">
                 <form string="Action">
                     <sheet>
-                        <group>
-                            <group col="4" colspan="4">
+
+                        <group name="group_top">
+                            <group name="group_left">
                                 <field name="reference_action"/>
                                 <field name="source"/>
                                 <field name="originateur"/>
                                 <field name="categorie"/>
-                                <field name="delai"/>
-                                <field name="etat"/>
                                 <field name="responsable"/>
                                 <field name="entreprise"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="type_action"/>
+                                <field name="etat"/>
                                 <field name="type"/>
                                 <field name="date_cloture"/>
                                 <field name="date_creation"/>
-                                <field name="description_observation"/>
-                                <field name="action_correctif"/>
+                                <field name="Cause_Racine"/>
+                                <field name="delai"/>
                             </group>
                         </group>
+
+                        <notebook>
+                             <page name="Action" string="Action">
+                                <label for="action_correctif" string="Action Correctif"/>
+                                <field name="action_correctif"/>
+                            </page>
+                            <page name="Description" string="Info">
+                                <label for="description_observation" string="Description"/>
+                                <field name="description_observation" widget="html"/>
+                            </page>
+
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -49,11 +64,12 @@
             <field name="res_model">action</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
+                <p class="oe_view_nocontent_create">
 
-              </p><p>
+                </p>
+                <p>
 
-              </p>
+                </p>
             </field>
         </record>
 
