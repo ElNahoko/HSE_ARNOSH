@@ -13,16 +13,18 @@
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
                                 <div class="o_kanban_image">
-                                    <img t-att-src="kanban_image('agent.a', 'agent_image', record.id.value)"/>
+                                    <img t-att-src="kanban_image('agent.a', 'agent_image', record.id.value)" width="100px" height="100px" />
                                 </div>
                                 <div class="oe_kanban_details">
                                     <strong>
                                         <ul>
-                                            <li>Agent :<field name="agent_id"/></li>
+                                            <li>Agent  :<field name="agent_id"/></li>
                                             <li>Compte :<field name="type_compte"/></li>
+                                            <!--
                                             <t t-foreach="record.local_id.raw_value" t-as='o'>
                                             <li> Zone : <t t-esc="o.localisation"/><br/></li>
                                             </t>
+                                              -->
                                         </ul>
                                     </strong>
                                 </div>
