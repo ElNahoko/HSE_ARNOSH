@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record model="ir.sequence" id="seq_action_hse">
+        <record model="ir.sequence" id="seq_action_hse_sor">
             <field name="name">Action </field>
-            <field name="code">action</field>
-            <field name="prefix">ACT</field>
+            <field name="code">action.sor</field>
+            <field name="prefix">ACT-SOR</field>
+            <field name="padding">3</field>
+        </record>
+
+         <record model="ir.sequence" id="seq_action_hse_acc">
+            <field name="name">Action </field>
+            <field name="code">action.acci</field>
+            <field name="prefix">ACT-ACCIDENT</field>
+            <field name="padding">3</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_action_hse_inc">
+            <field name="name">Action </field>
+            <field name="code">action.inci</field>
+            <field name="prefix">ACT-INCIDENT</field>
+            <field name="padding">3</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_action_hse_plan">
+            <field name="name">Action </field>
+            <field name="code">action.plan</field>
+            <field name="prefix">ACT-PLAN</field>
             <field name="padding">3</field>
         </record>
 </odoo>
