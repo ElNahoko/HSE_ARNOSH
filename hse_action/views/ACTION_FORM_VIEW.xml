@@ -43,7 +43,7 @@
                         </group>
 
                         <notebook>
-                             <page name="Action" string="Action">
+                            <page name="Action" string="Action">
                                 <label for="action_correctif" string="Action Correctif"/>
                                 <field name="action_correctif"/>
                             </page>
@@ -58,11 +58,102 @@
             </field>
         </record>
 
+
+        <!-- Act Report Graph View -->
+
+        <record id="ACT_Graph" model="ir.ui.view">
+            <field name="name">Act.graph</field>
+            <field name="model">action</field>
+            <field name="arch" type="xml">
+                <graph string="Act">
+                    <field name="type_action"/>
+                    <field name="etat"/>
+                    <field name="type"/>
+                    <field name="date_cloture"/>
+                    <field name="date_creation"/>
+                    <field name="Cause_Racine"/>
+                    <field name="delai"/>
+                    <field name="reference_action"/>
+                    <field name="source"/>
+                    <field name="originateur"/>
+                    <field name="categorie"/>
+                    <field name="responsable"/>
+                    <field name="entreprise"/>
+
+                </graph>
+            </field>
+        </record>
+
+        <!-- Act Report Pivot View -->
+
+        <record id="act_Pivot" model="ir.ui.view">
+            <field name="name">act.Pivot</field>
+            <field name="model">action</field>
+            <field name="arch" type="xml">
+                <pivot string="Actions" disable_linking="True">
+                    <field name="type_action"/>
+                    <field name="etat"/>
+                    <field name="type"/>
+                    <field name="date_cloture"/>
+                    <field name="date_creation"/>
+                    <field name="Cause_Racine"/>
+                    <field name="delai"/>
+                    <field name="reference_action"/>
+                    <field name="source"/>
+                    <field name="originateur"/>
+                    <field name="categorie"/>
+                    <field name="responsable"/>
+                    <field name="entreprise"/>
+                </pivot>
+            </field>
+        </record>
+
+
+        <!-- Act Filter Tree View -->
+
+        <record id="ACTs_search" model="ir.ui.view">
+            <field name="name">ACT.Search</field>
+            <field name="model">action</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Observation">
+                    <field name="type_action"/>
+                    <field name="etat"/>
+                    <field name="type"/>
+                    <field name="date_cloture"/>
+                    <field name="date_creation"/>
+                    <field name="Cause_Racine"/>
+                    <field name="delai"/>
+                    <field name="reference_action"/>
+                    <field name="source"/>
+                    <field name="originateur"/>
+                    <field name="categorie"/>
+                    <field name="responsable"/>
+                    <field name="entreprise"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="etat" string="Etat"
+                                domain="[]" context="{'group_by':'etat'}"/>
+                        <filter name="type" string="Type"
+                                domain="[]" context="{'group_by':'type'}"/>
+                        <filter name="delai" string="delai"
+                                domain="[]" context="{'group_by':'delai'}"/>
+                        <filter name="source" string="Source"
+                                domain="[]" context="{'group_by':'source'}"/>
+                        <filter name="responsable" string="Responsable"
+                                domain="[]" context="{'group_by':'responsable'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
         <record id="act_open_action_view" model="ir.actions.act_window">
             <field name="name">Action</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">action</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph,kanban</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
 
@@ -70,6 +161,51 @@
                 <p>
 
                 </p>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="kanban_view_patient">
+            <field name="name">Act HSE</field>
+            <field name="model">action</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="type_action"/>
+                    <field name="etat"/>
+                    <field name="source"/>
+                    <field name="type"/>
+                    <field name="entreprise"/>
+                    <templates>
+
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <ul>
+                                            <li>Type action :
+                                                <field name="type_action"/>
+                                            </li>
+                                            <li>Etat :
+                                                <field name="etat"/>
+                                            </li>
+                                            <li>Source :
+                                                <field name="source"/>
+                                            </li>
+                                            <li>Type :
+                                                <field name="type"/>
+                                            </li>
+                                            <li>Entreprise :
+                                                <field name="entreprise"/>
+                                            </li>
+                                        </ul>
+                                    </strong>
+                                </div>
+
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
