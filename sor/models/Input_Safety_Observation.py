@@ -19,6 +19,11 @@ class Observation(models.Model):
         string="Projet",
         required=False, )
 
+    zone = fields.Many2one(
+        'local.n',
+        string="Zone concernée",
+        required=False, )
+
     company_id = fields.Many2one(
         'res.company',
         string="Entreprise",
@@ -51,7 +56,7 @@ class Observation(models.Model):
     risque_critique = fields.Many2one(
         "risque.r",
         string="Type de Risque",
-        required=True, )
+        required=False, )
 
     priority = fields.Selection([
         ('0', 'Low'),
@@ -80,25 +85,25 @@ class Observation(models.Model):
             return res
 
     def informer_responsable(self):
-            message_body = "Bonjour " + self.id_soumetteur.name + "," + \
+
+        message_body = "Bonjour " + self.id_soumetteur.name + "," + \
                            "<br>Vous avez recu un input Urgent  " + \
                             "<br>Type de risque : " + self.risque_critique.type_risque + \
                            "<br>Date : " + str(self.date_creation) + \
                            '<br><br>Cordialement'
-            to = "adham.baq@gmail.com"
-            data = {
+
+        to = "adham.baq@gmail.com"
+        data = {
             'subject': 'Observation Urgent',
             'body_html': message_body,
             'email_from': self.env.user.company_id.email,
             'email_to': to
             }
-
-            template_id = self.env['mail.mail'].create(data)
-            if self.env['mail.mail'].send(template_id):
+        template_id = self.env['mail.mail'].create(data)
+        if self.env['mail.mail'].send(template_id):
                 print("5/5")
-            else:
+        else:
                 print("0/5")
-
 
     @api.multi
     def create_action(self):
@@ -110,7 +115,9 @@ class Observation(models.Model):
                     'originateur': rec.id_soumetteur.name,
                     'categorie': rec.risque_critique.type_risque,
                     'etat': 'Ouvert',
-                    'date_creation': datetime.datetime.now()
+                    'responsable': self.env.user.name,
+                    'date_creation': datetime.datetime.now(),
+                    'type_action': 'Preventive'
                 }
 
                 action_ids = action_obj.create(action_sor)
