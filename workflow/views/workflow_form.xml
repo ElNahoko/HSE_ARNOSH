@@ -1,80 +1,133 @@
 <?xml version="1.0"?>
 <odoo>
-        <record id="view_agent_form" model="ir.ui.view">
-            <field name="name">agent.a.form</field>
-            <field name="model">agent.a</field>
-            <field name="priority" eval="8" />
-            <field name="arch" type="xml">
-                <form string="Agent">
-                     <header>
-                         <button name="create_action" string="Historique" type="object" class="oe_highlight" />
-                     </header>
-                    <sheet>
+    <record id="view_agent_form" model="ir.ui.view">
+        <field name="name">agent.a.form</field>
+        <field name="model">agent.a</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <form string="Agent">
+                <header>
+                    <button name="create_action" string="Historique" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
 
-                          <field name="agent_image" widget="image_popup" class="oe_avatar"/>
+                    <field name="agent_image" widget="image_popup" class="oe_avatar"/>
                     <div name="title_name" class="oe_title">
-                            <h1>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <field name="titre"
-                                                required="1"
-                                                placeholder="Type"
-                                                style="padding-right:10px"
-                                            />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </h1>
-                        </div>
-                      <group name="group_top">
+                        <h1>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <field name="titre"
+                                               required="1"
+                                               placeholder="Type"
+                                               style="padding-right:10px"
+                                        />
+                                    </td>
+                                </tr>
+                            </table>
+                        </h1>
+                    </div>
+                    <group name="group_top">
                         <group name="group_left">
-                          <field name="agent_id"/>
-                           <field name="cin"/>
+                            <field name="agent_id"/>
+                            <field name="cin"/>
                             <field name="sous_traitant"/>
                             <field name="poste"/>
 
                         </group>
                         <group name="group_right">
-                          <field name="local_id" widget="many2many_tags" options="{'limit': 0, 'create': true, 'create_edit': true, 'search_more': true}"/>
+                            <field name="local_id" widget="many2many_tags"
+                                   options="{'limit': 0, 'create': true, 'create_edit': true, 'search_more': true}"/>
                             <field name="type_compte"/>
                             <field name="date_induction"/>
                         </group>
-                      </group>
-                    </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                        <field name="message_ids" widget="mail_thread"/>
-                    </div>
-
-                </form>
-            </field>
-        </record>
 
 
-        <record model="ir.actions.act_window" id="act_open_worflow_view">
-            <field name="name">Agents</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">agent.a</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <field name="domain">[]</field>
-            <field name="context">{}</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                    Créer un agent HSE..
-                </p>
-            </field>
-        </record>
+                    </group>
+                    <notebook>
+                            <page name="Remarque" string="Action">
+                                <label for="remarque" string="Remarque"/>
+                                <field name="remarque"/>
+                            </page>
+                        </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Wrk Filter Tree View -->
+
+    <record id="wrk_search" model="ir.ui.view">
+        <field name="name">wrk.Search</field>
+        <field name="model">agent.a</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <search string="Agent">
+                <field name="agent_id"/>
+                <field name="sous_traitant"/>
+                <field name="type_compte"/>
+                <field name="date_induction"/>
 
 
-        <menuitem id="workflow_menu"
-                name="Agent HSE"
-               />
-    	<menuitem id="Agent HSE_1"
-              	parent="workflow_menu"
-              	name="Agent HSE"
-              	action="act_open_worflow_view"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="agent_id" string="Agent"
+                            domain="[]" context="{'group_by':'agent_id'}"/>
+                    <filter name="sous_traitant" string="Sous traitant"
+                            domain="[]" context="{'group_by':'sous_traitant'}"/>
+                    <filter name="type_compte" string="Type Compte"
+                            domain="[]" context="{'group_by':'type_compte'}"/>
+                    <filter name="date_induction" string="Date induction"
+                            domain="[]" context="{'group_by':'date_induction'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+        <!-- wrk Report Graph View -->
+
+    <record id="wrk_Graph" model="ir.ui.view">
+        <field name="name">wrk.graph</field>
+        <field name="model">agent.a</field>
+        <field name="arch" type="xml">
+            <graph string="Agent">
+                <field name="agent_id"/>
+                <field name="sous_traitant"/>
+                <field name="type_compte"/>
+                <field name="date_induction"/>
+             </graph>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_open_worflow_view">
+        <field name="name">Agents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">agent.a</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form,graph</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Créer un agent HSE..
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="workflow_menu"
+              name="Agent HSE"
+    />
+    <menuitem id="Agent HSE_1"
+              parent="workflow_menu"
+              name="Agent HSE"
+              action="act_open_worflow_view"/>
 
 
 </odoo>
