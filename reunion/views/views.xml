@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+        <record id="view_agent_form" model="ir.ui.view">
+            <field name="name">reunion.form</field>
+            <field name="model">reunion</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="reunion">
+                    <sheet>
+
+                      <group name="group_top">
+                        <group name="group_left">
+                             <field name="type"/>
+                             <field name="date"/>
+                          <field name="duree"/>
+    <field name="titre"/>
+        <field name="responsable"/>
+
+
+                        </group>
+                        <group name="group_right">
+                            <field name="nbr"/>
+                            <field name="photo"/>
+                            <field name="rapport"/>
+
+
+
+                        </group>
+                      </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+<record id="reunion_menu_action" model="ir.actions.act_window">
+        	<field name="name">Reunion</field>
+        	<field name="res_model">reunion</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+        	<field name="domain">[]</field>
+        	<field name="help" type="html">
+            	<p class="oe_view_nocontent_create">Ajouter une nouvelle réunion
+            	</p>
+        	</field>
+</record>
+
+         <record id="reunion_tree_view" model="ir.ui.view">
+
+ <field name="name">reunion Tree</field>
+
+ <field name="model">reunion</field>
+
+ <field name="arch" type="xml">
+
+           <tree>
+            <field name="type"/>
+          <field name="titre"/>
+
+          <field name="responsable"/>
+
+          <field name="duree"/>
+
+          <field name="nbr"/>
+
+          <field name="date"/>
+            </tree>
+
+  </field>
+
+   </record>
+
+
+
+      <menuitem id="reunion_menu"
+              	name="Reunion"/>
+      <menuitem id="r_menu"
+              	parent="reunion_menu"
+              	name="Liste des reunions"
+              	action="reunion_menu_action"/>
+
+</odoo>
