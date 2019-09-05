@@ -23,10 +23,16 @@ class Agent(models.Model):
                    ('normaux', 'Agent normale'), ],
         required=True, track_visibility='onchange')
 
-    local_id = fields.One2many(
+    # Description de l'observation
+    remarque = fields.Text(
+        string="Remarque",
+        required=False, )
+
+    local_id = fields.Many2many(
         'local.n',
-        'Localisation_Af',
+
         string='Localisation', track_visibility='onchange')
+
 
     titre = fields.Selection([
         ('mr', 'Mr'),
@@ -80,10 +86,6 @@ class Localisation(models.Model):
     _rec_name = 'localisation'
     _description = 'New Description'
 
-    Localisation_Af = fields.Many2one(
-        'agent.a',
-        string='Localisation',
-        readonly=True)
     Localisation_Af_hist = fields.Many2one(
         'historiq',
         string='Local Historique',
