@@ -120,7 +120,7 @@ class Equipement(models.Model):
     unite_mesure = fields.Selection(
         [('1', 'unité'), ('2', 'Kl'),
          ('3', 'L'), ('4', 'g')],
-        string='msure par ', default="1"
+        string='msuré par ', default="1"
     )
     commentaire = fields.Text(
         string="Description",

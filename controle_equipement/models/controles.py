@@ -104,7 +104,7 @@ class alertControle(models.Model):
             'email_to': self.mail_tech
         }
         template_id = self.env['mail.mail'].create(data)
-        if self.env['mail.mail'].send(template_id):
+        if self.env['mail.mail'].send(template_id): # browse
             self.date_envoi = fields.Datetime.now()
             return self.write({'status': 'sent'})
             print("sent !")

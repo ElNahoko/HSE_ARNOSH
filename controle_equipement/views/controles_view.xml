@@ -14,6 +14,54 @@
         	</field>
         </record>
 
+ <!-- Search Contrôle Filter Tree View -->
+
+        <record id="controles_search" model="ir.ui.view">
+            <field name="name">controle.tree</field>
+            <field name="model">controle.ctl</field>
+             <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+               <search string="Contrôle">
+                    <field name="date_control"/>
+                    <field name="controle_type"/>
+                    <field name="equip_id"/>
+                    <field name="equip_categorie" />
+                    <field name="user_tech"/>
+
+                    <newline />
+                    <group expand="0" string="Grouper par...">
+                         <filter name="equip_id" string="Réference d'Equipement"
+                            domain="[]" context="{'group_by':'equip_id'}" />
+                        <filter name="date_control" string="Date contrôle"
+                            domain="[]" context="{'group_by':'date_control'}" />
+                        <filter name="controle_type" string="Type de contrôle"
+                            domain="[]" context="{'group_by':'controle_type'}" />
+                        <filter name="equip_categorie" string="Catégorie"
+                            domain="[]" context="{'group_by':'equip_categorie'}" />
+                        <filter name="user_tech" string="Contrôleur"
+                            domain="[]" context="{'group_by':'user_tech'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+             <!-- Contrôle Report Graph View -->
+
+        <record id="Controle_Graph" model="ir.ui.view">
+        <field name="name">Controle.Pivot</field>
+        <field name="model">controle.ctl</field>
+        <field name="arch" type="xml">
+            <graph string="Contrôle">
+                    <field name="date_control"/>
+                    <field name="controle_type"/>
+                    <field name="equip_id"/>
+                    <field name="user_tech"/>
+                    <field name="conforme"/>
+            </graph>
+        </field>
+        </record>
+
 
 <!-- controle Form View -->
 
@@ -73,7 +121,7 @@
         </field>
   </record>
 
-    <!-- Tree of contrôles -->
+    <!--  contrôles Tee view-->
 
      <record id="contrôle_equip_tree" model="ir.ui.view">
         <field name="name">controle.tree</field>

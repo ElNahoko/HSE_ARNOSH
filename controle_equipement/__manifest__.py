@@ -19,10 +19,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','mail'],
+    'depends': ['base', 'mail', 'workflow'],
 
     # always loaded
     'data': [
+
+        'security/HSE_control_equip_groups.xml',
         'security/ir.model.access.csv',
         'views/Equipement_VIEW.xml',
         'data/Equipement_sequence.xml',

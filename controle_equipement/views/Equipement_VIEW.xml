@@ -83,6 +83,40 @@
         </field>
   </record>
 
+<!-- Search Equipement Filter Tree View -->
+        <record id="equipement_search" model="ir.ui.view">
+            <field name="name">equipement.tree</field>
+            <field name="model">equipment.ctl</field>
+             <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+               <search string="Equipement">
+
+                     <field name="ref_equip"/>
+                       <field name="nom_equip"/>
+                       <field name="categorie_id"/>
+                       <field name="technician_user_id"/>
+                       <field name="localisation_id"/>
+                       <field name="type_controle"/>
+                       <field name="date_utilisation"/>
+
+                    <newline />
+                    <group expand="0" string="Grouper par...">
+                         <filter name="ref_equip" string="Réference d'Equipement"
+                            domain="[]" context="{'group_by':'ref_equip'}" />
+                        <filter name="nom_equip" string="Type"
+                            domain="[]" context="{'group_by':'nom_equip'}" />
+                        <filter name="categorie_id" string="Catégorie"
+                            domain="[]" context="{'group_by':'categorie_id'}" />
+                        <filter name="technician_user_id" string="Responsable Technique"
+                            domain="[]" context="{'group_by':'technician_user_id'}" />
+                        <filter name="localisation_id" string="Localisation"
+                            domain="[]" context="{'group_by':'localisation_id'}" />
+                        <filter name="date_utilisation" string="Date de mise en charge"
+                            domain="[]" context="{'group_by':'date_utilisation'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
     <record id="equipment_tree" model="ir.ui.view">
         <field name="name">equipment.tree</field>
         <field name="model">equipment.ctl</field>
@@ -97,7 +131,7 @@
                        <field name="quantity"/>
                        <field name="unite_mesure" />
                        <field name="type_controle"/>
-                       <field name="date_creation"/>
+                       <field name="date_utilisation"/>
             </tree>
         </field>
     </record>

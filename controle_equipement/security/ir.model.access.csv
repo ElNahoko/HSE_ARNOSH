@@ -1,6 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-id_equipement,access.equipment.ctl,model_equipment_ctl,base.group_user,1,1,1,1
-id_categorie,access.categorie.ctl,model_categorie_ctl,base.group_user,1,1,1,1
-id_local.n,access.local.n,model_local_n,base.group_user,1,1,1,1
-id_alert,access.alert.alert,model_alert_alert,base.group_user,1,1,1,1
-id_controle,access.controle.ctl,model_controle_ctl,base.group_user,1,1,1,1
+admin_equipement,access.equipment.ctl,model_equipment_ctl,group_responsible,1,1,1,1
+agent_equipement,access.equipment.ctl,model_equipment_ctl,group_user,1,0,0,0
+admin_categorie,access.categorie.ctl,model_categorie_ctl,group_responsible,1,1,1,1
+agent_categorie,access.categorie.ctl,model_categorie_ctl,group_user,1,0,0,0
+admin_local.n,access.local.n,model_local_n,group_responsible,1,1,1,1
+agent_local.n,access.local.n,model_local_n,group_user,1,0,0,0
+admin_alert,access.alert.alert,model_alert_alert,group_responsible,1,1,1,1
+agent_alert,access.alert.alert,model_alert_alert,group_user,0,0,0,0
+admin_controle,access.controle.ctl,model_controle_ctl,group_responsible,1,0,1,1
+agent_controle,access.controle.ctl,model_controle_ctl,group_user,1,1,1,1
