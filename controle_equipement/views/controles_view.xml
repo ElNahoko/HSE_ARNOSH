@@ -25,7 +25,6 @@
                     <field name="date_control"/>
                     <field name="controle_type"/>
                     <field name="equip_id"/>
-                    <field name="equip_categorie" />
                     <field name="user_tech"/>
 
                     <newline />
@@ -36,8 +35,6 @@
                             domain="[]" context="{'group_by':'date_control'}" />
                         <filter name="controle_type" string="Type de contrôle"
                             domain="[]" context="{'group_by':'controle_type'}" />
-                        <filter name="equip_categorie" string="Catégorie"
-                            domain="[]" context="{'group_by':'equip_categorie'}" />
                         <filter name="user_tech" string="Contrôleur"
                             domain="[]" context="{'group_by':'user_tech'}" />
                     </group>

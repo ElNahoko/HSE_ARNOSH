@@ -89,7 +89,7 @@ class Equipement(models.Model):
     ### infos equipement : ###
     ref_equip = fields.Char(
         string='Réference',
-        readonly=True,
+       # readonly=True,
         default=lambda self: _('New')
     )
     nom_equip = fields.Char(
@@ -109,6 +109,10 @@ class Equipement(models.Model):
         string ='local supérieur',
         related='localisation_id.parent_name'
     )
+    emplacement =fields.Char(
+        string ='Emplacement',
+        required=True
+    )
     utilisation = fields.Char(
         string="Utilisation",
     )
@@ -116,9 +120,9 @@ class Equipement(models.Model):
         string="Quantité",
         default="1",
     )
-    #unité de mesure pr qté
+    #unité de mesure pour quantité
     unite_mesure = fields.Selection(
-        [('1', 'unité'), ('2', 'Kl'),
+        [('1', 'unité'), ('2', 'Kg'),
          ('3', 'L'), ('4', 'g')],
         string='msuré par ', default="1"
     )
