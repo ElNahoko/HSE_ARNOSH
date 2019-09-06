@@ -4,3 +4,5 @@ eng_ag,access.engin,model_engin,group_user,1,0,0,0
 cont,access.control.engin,model_control_engin,base.group_user,1,1,1,1
 demande_res,access.pro.control,model_pro_control,group_responsible,1,1,1,1
 demande_ag,access.pro.control,model_pro_control,group_user,0,0,0,0
+type_res,access.type.engin,model_type_engin,group_responsible,1,1,1,1
+type_ag,access.type.engin,model_type_engin,group_user,1,0,0,0

@@ -43,6 +43,7 @@
                                                         <field name="etat_bip_recul" widget="radio"/>
                                                         <field name="etat_retroviseur" widget="radio"/>
                                                         <field name="etat_ceinture" widget="radio"/>
+                                      
                                   </group>
                                   <group>
                                                         <field name="etat_exticteur" widget="radio"/>

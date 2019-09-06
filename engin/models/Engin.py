@@ -3,18 +3,25 @@ from os.path import join
 
 from odoo import models, fields, api
 
+class TypeEngin(models.Model):
+    _name = 'type.engin'
+    _rec_name = 'nom'
+
+    nom = fields.Char(string="Type d'engin ou vehicule", required=True)
+
 
 class Engin(models.Model):
     _inherit = ['mail.thread']
     _name = 'engin'
     _rec_name = 'matricule'
+    _sql_constraints = [('matricule_unique', 'unique(matricule)', 'déjà trouvé')]
 
-    type = fields.Char(string="Type d'engin ou vehicule", required=True)
+    type = fields.Many2one('type.engin', string="Type d'engin ou vehicule", required=True)
     matricule = fields.Char(string='Matricule', required=True)
     date_fin_assurance = fields.Date(string='Date fin Assurance', required=True)
-    control_id = fields.One2many('control.engin', 'engin_id', string='Controles')
+    control_id = fields.One2many('control.engin', 'engin_id', string='Contrôles')
     agent_id = fields.Many2one('agent.a', string='Conducteur')
-    image_carte = fields.Binary(string="Documents")
+    image_carte = fields.Binary(string="Documents (carte grise..)")
     engin_idC = fields.Many2one('pro.control', string='Engins')
 
     @api.multi
@@ -42,16 +49,15 @@ class demandeControl(models.Model):
     _rec_name = 'sujet'
 
     sujet = fields.Char(string='Sujet de la demande', required=True)
-    enginP_id = fields.One2many('engin', 'engin_idC', string='Engin', required=True)
+    enginP_id = fields.Many2many('engin', string='Engin', required=True)
     matricule_en = fields.Char(related='enginP_id.matricule')
-    date_du_control = fields.Date(string='Date du control', required=True)
-    agent_control = fields.Many2one('res.users', String="envoye a", )
+    date_du_control = fields.Date(string='Date du contrôl', required=True)
+    agent_control = fields.Many2one('res.users', String="envoyé à", )
     mail_ag = fields.Char(related='agent_control.email')
     commentaire = fields.Char(String="Commentaire", required=True)
     state = fields.Selection([
-        ('outgoing', 'Brouillon'),
-        ('sent', 'envoye'),
-        ('exception', "Echec d'envoi"),
+        ('outgoing', "En cours d'envoi"),
+        ('sent', 'Envoyé'),
     ], 'Status', readonly=True, copy=False, default='outgoing')
 
     # @api.multi
@@ -85,9 +91,9 @@ class demandeControl(models.Model):
         print(*str(self.enginP_id), sep=", ")
 
         message_body = "Bonjour " + self.agent_control.name + "," + \
-                       "<br>Vous avez une demande de control  " + \
+                       "<br>Vous avez une demande de contrôl  " + \
                        "<br>Engin(s) : " + ''.join(str(e.matricule) + ' ,' for e in self.enginP_id) + \
-                       "<br>Date du control : " + str(self.date_du_control) + \
+                       "<br>Date du contrôl : " + str(self.date_du_control) + \
                        "<br> Commentaire : " + str(self.commentaire) + \
                        '<br><br>Cordialement'
         to = self.mail_ag
@@ -100,8 +106,7 @@ class demandeControl(models.Model):
         }
 
         template_id = self.env['mail.mail'].create(data)
-        sending = self.env['mail.mail'].send(template_id)
-        if sending:
-            return self.write({'state': 'sent'})
-        else:
-            return self.write({'state': 'exception'})
+        # self.env['mail.mail'].browse(template_id.id).send(self.id)
+        # sending = self.env['mail.mail'].send(template_id)
+        self.env['mail.mail'].browse(template_id.id).send(self.id)
+        self.write({'state': 'sent'})

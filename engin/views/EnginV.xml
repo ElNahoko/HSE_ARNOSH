@@ -82,6 +82,56 @@
                 </form>
             </field>
       </record>
+       <!-- type Engin view -->
+       <record model="ir.actions.act_window" id="type_list">
+            <field name="name">Type Engin</field>
+            <field name="res_model">type.engin</field>
+            <field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+        	<field name="domain">[]</field>
+        	<field name="help" type="html">
+            	<p class="oe_view_nocontent_create">Creer votre premier type engin
+            	</p>
+        	</field>
+      </record>
+
+      <!-- type Engin kanban -->
+
+      <record model="ir.ui.view" id="kanban_type_engin">
+              <field name="name">Engin list</field>
+              <field name="model">type.engin</field>
+              <field name="arch" type="xml">
+
+                <kanban>
+
+                  <field name="nom"/>
+
+
+                </kanban>
+              </field>
+      </record>
+
+      <!--type engin form view-->
+
+      <record id="type_engin_view" model="ir.ui.view">
+
+            <field name="name">Type Engin</field>
+            <field name="model">type.engin</field>
+            <field name="arch" type="xml">
+
+                      <form string="Type Engin">
+
+                          <sheet>
+                              <group>
+                                <group name="group_general1">
+                                    <field name="nom"/>
+                                </group>
+                              </group>
+
+                       </sheet>
+                </form>
+            </field>
+      </record>
 
 
       <record id="mail.action_view_mail_mail" model="ir.actions.act_window">
@@ -175,6 +225,15 @@
               	parent="Engin_menu"
               	name="Demandes de control"
               	action="demande_list"/>
+      <menuitem id="config_engin_menu"
+              	parent="Engin_menu"
+              	name="Configuration"
+              	/>
+      <menuitem id="type_engin_menu"
+              	parent="config_engin_menu"
+              	name="Type d'engin"
+                action="type_list"
+              	/>
       <!--menuitem id="engin_mail_menu"
               	parent="Engin_menu"
               	name="Mes mails"
