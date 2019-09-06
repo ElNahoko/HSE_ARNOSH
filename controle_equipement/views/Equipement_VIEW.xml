@@ -46,7 +46,11 @@
                         </group>
                         <group>
                             <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
-                            <field name="quantity"/>
+                            <label for="quantity"/>
+                            <div>
+                                <field name="quantity" class="oe_inline"/> <field name="unite_mesure" class="oe_inline"/>
+                             </div>
+
                             <field name="date_utilisation"/>
                         </group>
                 </group>
@@ -91,6 +95,7 @@
                        <field name="local_parent" />
                        <field name="localisation_id"/>
                        <field name="quantity"/>
+                       <field name="unite_mesure" />
                        <field name="type_controle"/>
                        <field name="date_creation"/>
             </tree>

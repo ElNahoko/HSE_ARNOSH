@@ -116,6 +116,12 @@ class Equipement(models.Model):
         string="Quantité",
         default="1",
     )
+    #unité de mesure pr qté
+    unite_mesure = fields.Selection(
+        [('1', 'unité'), ('2', 'Kl'),
+         ('3', 'L'), ('4', 'g')],
+        string='msure par ', default="1"
+    )
     commentaire = fields.Text(
         string="Description",
     )
@@ -159,7 +165,7 @@ class Equipement(models.Model):
         # compute='_depends_periode_type'
     )
     date_utilisation = fields.Date(
-        string='Date première utilisation',
+        string='Date de mise en charge',
         default=fields.Date.context_today
     )
     date_creation = fields.Datetime(
