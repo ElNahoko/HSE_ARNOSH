@@ -29,12 +29,12 @@ class alertControle(models.Model):
         required=True,
     )
     user_tech = fields.Char(
-         related='equipement_id.tec_name',
-         store=True,readonly=True
-     )
+        related='equipement_id.tec_name',
+        store=True, readonly=True
+    )
     mail_tech = fields.Char(
         related='equipement_id.mail_tec',
-        store=True, string= "envoyé à"
+        store=True, string="envoyé à"
     )
     local_control = fields.Char(
         related='equipement_id.local_name',
@@ -81,7 +81,6 @@ class alertControle(models.Model):
             self.date_envoi = fields.Datetime.now()
             # self.write({'date_envoi': fields.Datetime.now()})  # still not working ...!
 
-
     # envois par mail une demande de contrôle
     @api.one
     def send_mail_to_technicien(self):
@@ -104,7 +103,8 @@ class alertControle(models.Model):
             'email_to': self.mail_tech
         }
         template_id = self.env['mail.mail'].create(data)
-        if self.env['mail.mail'].send(template_id): # browse
+        self.env['mail.mail'].send(template_id)  # browse
+        if template_id:
             self.date_envoi = fields.Datetime.now()
             return self.write({'status': 'sent'})
             print("sent !")
