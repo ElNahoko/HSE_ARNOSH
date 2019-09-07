@@ -100,7 +100,11 @@ class Localisation(models.Model):
         string='Parent Category',
         ondelete='restrict',
         index=True)
-
+ #--related field to be used in contrôle equipement module--
+    parent_name =fields.Char(
+        related='parent_id.localisation',
+        store=True
+    )
     image = fields.Binary(
         string="Image du zone",  )
 
