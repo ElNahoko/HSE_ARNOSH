@@ -88,7 +88,7 @@ class Equipement(models.Model):
 
     ### infos equipement : ###
     ref_equip = fields.Char(
-        string='Réference',
+        string='Réference',#Matricule
        # readonly=True,
         default=lambda self: _('New')
     )
@@ -169,7 +169,7 @@ class Equipement(models.Model):
         # compute='_depends_periode_type'
     )
     date_utilisation = fields.Date(
-        string='Date de mise en charge',
+        string='Date de mise en charge',#date de mise en service!!
         default=fields.Date.context_today
     )
     date_creation = fields.Datetime(

@@ -6,7 +6,9 @@
             <field name="name">Equipements</field>
         	<field name="res_model">equipment.ctl</field><!-- the action is going to this model-->
         	<field name="view_type">form</field>
-        	<field name="view_mode">tree,form,kanban</field>
+        	<field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="equipement_search"/>
+             <field name="context">{'search_default_localisation_id': 1}</field>
         	<field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                    Ajouter votre premier équipement
@@ -34,24 +36,29 @@
                     <field string="Contrôles" name="controle_count" widget="statinfo"/>
                   </button>
                  </div>
-                 <field name="ref_equip"/>
-                     <div class="oe_title">
-                    <label for="nom_equip" class="oe_edit_only"/>
-                    <h1><field name="nom_equip" string="Name" placeholder="Nom Equipment"/></h1>
-                    </div>
+                 <group name="group_top">
+                        <group>
+                     <field name="ref_equip"/>
+
+                         <div class="oe_title">
+                        <label for="nom_equip" class="oe_edit_only"/>
+                        <h2><field name="nom_equip" string="Name" placeholder="Nom Equipment"/></h2>
+                        </div>
+                      </group>
+                 </group>
                 <group>
                         <group>
-                            <field name="ref_equip" />
                             <field name="categorie_id" options="{&quot;no_open&quot;: True}"/>
                             <field name="utilisation"/>
+                            <field name="emplacement" />
                         </group>
                         <group>
-                            <field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
+                            <field name="local_parent" class="oe_inline" readonly="1"/><field name="localisation_id" options="{&quot;no_open&quot;: True}"/>
                             <label for="quantity"/>
                             <div>
                                 <field name="quantity" class="oe_inline"/> <field name="unite_mesure" class="oe_inline"/>
                              </div>
-                            <field name="emplacement" />
+
                             <field name="date_utilisation"/>
                         </group>
                 </group>
@@ -96,13 +103,17 @@
                        <field name="nom_equip"/>
 
                        <field name="categorie_id"/>
+                       <field name="emplacement" />
                        <field name="technician_user_id"/>
+                       <field name="local_parent" />
                        <field name="localisation_id"/>
-                       <field name="type_controle"/>
+                        <field name="quantity"/>
+                       <field name="unite_mesure" />
                        <field name="date_utilisation"/>
 
                     <newline />
                     <group expand="0" string="Grouper par...">
+
                          <filter name="ref_equip" string="Réference d'Equipement"
                             domain="[]" context="{'group_by':'ref_equip'}" />
                         <filter name="nom_equip" string="Type"
@@ -123,17 +134,18 @@
         <field name="name">equipment.tree</field>
         <field name="model">equipment.ctl</field>
         <field name="arch" type="xml">
-             <tree string="Equipements" editable="bottom">
+<!--             <tree string="Equipements" editable="bottom">-->
+            <tree string="Equipements" >
                        <field name="ref_equip"/>
                        <field name="nom_equip"/>
                        <field name="categorie_id"/>
                        <field name="emplacement" />
-                       <field name="technician_user_id"/>
+<!--                       <field name="technician_user_id"/>-->
                        <field name="local_parent" />
                        <field name="localisation_id"/>
                        <field name="quantity"/>
                        <field name="unite_mesure" />
-                       <field name="type_controle"/>
+<!--                       <field name="type_controle"/>-->
                        <field name="date_utilisation"/>
             </tree>
         </field>
